@@ -101,7 +101,6 @@ async function loadCategory(category) {
       const response = await fetch(`./${category}/${file}`);
       const text = await response.text();
       const gradients = parseColors(text);
-
       createCard(file, gradients, category);
     } catch (err) {
       console.error(`Failed to load ${file}:`, err);
@@ -109,7 +108,7 @@ async function loadCategory(category) {
   }
 }
 
-// Parses color lines, including multi-RGB gradients per line
+// Parse any color line and generate gradient pairs
 function parseColors(text) {
   const lines = text.split(/\r?\n/);
   const gradients = [];
@@ -120,29 +119,21 @@ function parseColors(text) {
 
     const lower = line.toLowerCase();
 
-    // Solidcolor lines
-    if (lower.startsWith("solidcolor")) {
-      const nums = line.match(/\d+/g);
-      if (!nums || nums.length < 4) continue;
-      const r = parseInt(nums[1]);
-      const g = parseInt(nums[2]);
-      const b = parseInt(nums[3]);
-      gradients.push([`rgb(${r},${g},${b})`, `rgb(${r},${g},${b})`]);
-    }
-
-    // Color/Color4 lines (multi-color gradients)
-    if (lower.startsWith("color")) {
-      const nums = line.match(/-?\d+\.?\d*/g);
+    if (lower.startsWith("solidcolor") || lower.startsWith("color")) {
+      // Grab all numbers (allow negative and 0-padded)
+      const nums = line.match(/-?\d+/g);
       if (!nums || nums.length < 4) continue;
 
+      // skip the first number (value), then make RGB triplets
       const rgbTriplets = [];
       for (let i = 1; i + 2 < nums.length; i += 3) {
-        const r = parseInt(nums[i]);
-        const g = parseInt(nums[i + 1]);
-        const b = parseInt(nums[i + 2]);
+        const r = parseInt(nums[i], 10);
+        const g = parseInt(nums[i + 1], 10);
+        const b = parseInt(nums[i + 2], 10);
         rgbTriplets.push(`rgb(${r},${g},${b})`);
       }
 
+      // push consecutive triplets as gradient pairs
       if (rgbTriplets.length === 1) {
         gradients.push([rgbTriplets[0], rgbTriplets[0]]);
       } else {
@@ -188,7 +179,7 @@ function createCard(filename, gradients, category) {
   grid.appendChild(card);
 }
 
-// Draw all gradients horizontally
+// Draw all gradients across full canvas width
 function drawPreview(canvas, gradients) {
   const ctx = canvas.getContext("2d");
   const width = canvas.width;
@@ -198,7 +189,7 @@ function drawPreview(canvas, gradients) {
 
   const grad = ctx.createLinearGradient(0, 0, width, 0);
 
-  // Flatten all gradient stops
+  // flatten all gradient stops
   const stops = [];
   gradients.forEach(pair => {
     stops.push(pair[0]);
