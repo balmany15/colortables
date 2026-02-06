@@ -22,11 +22,11 @@ const files = {
     "AVL_BroadcastNegatives.pal",
     "Baron256.pal",
     "BaronLynx.pal",
-    "blueness.pal",
     "BradP_Charlotte.pal",
     "CODE BR.pal",
     "Custom Refl.pal",
     "Custom Refl2.pal",
+    "Custom Refl2 (1).pal",
     "Custom Z2.pal",
     "Dark Z2.pal",
     "DuPageWx.pal",
@@ -60,7 +60,8 @@ const files = {
     "WDTB_Bright.pal",
     "WDTD Z.pal",
     "WxTap_BR.pal",
-    "WxTap_RadarLabHD.pal"
+    "WxTap_RadarLabHD.pal",
+    "blueness.pal"
   ],
   velocity: [
     "ALPHA-Velo.pal",
@@ -92,83 +93,65 @@ const files = {
   ]
 };
 
-// Load a category and display all palettes
+// Load all .pal files for a category
 async function loadCategory(category) {
   grid.innerHTML = "";
 
   for (const file of files[category]) {
     try {
-      const response = await fetch(`./${category}/${encodeURIComponent(file)}`);
-      if (!response.ok) {
-        console.warn(`Could not load ${file}: ${response.status}`);
-        continue;
-      }
-
+      const response = await fetch(`./${category}/${file}`);
       const text = await response.text();
-      const gradients = parseColors(text);
-
-      if (!gradients.length) {
-        console.warn(`No valid gradients in ${file}`);
-        continue;
-      }
-
-      createCard(file, gradients, category);
+      const colors = parseColors(text);
+      createCard(file, colors, category);
     } catch (err) {
       console.error(`Failed to load ${file}:`, err);
     }
   }
 }
 
-// Parse color lines, including multi-RGB gradients per line
+// Parse .pal file and extract gradient colors
 function parseColors(text) {
   const lines = text.split(/\r?\n/);
-  const gradients = [];
+  const entries = [];
 
   for (let line of lines) {
     line = line.trim();
-    if (!line || line.startsWith(";")) continue;
+    if (!line || line.startsWith(";") || /^[a-z]+:/i.test(line) && !line.toLowerCase().startsWith("color")) continue;
 
-    const lower = line.toLowerCase();
+    const nums = line.match(/-?\d+\.?\d*/g); // match ints or floats
+    if (!nums || nums.length < 4) continue; // need at least one RGB triplet
 
-    // solidcolor lines
-    if (lower.startsWith("solidcolor")) {
-      const nums = line.match(/\d+/g);
-      if (!nums || nums.length < 4) continue;
+    // SOLIDCOLOR
+    if (line.toLowerCase().startsWith("solidcolor")) {
       const r = parseInt(nums[1]);
       const g = parseInt(nums[2]);
       const b = parseInt(nums[3]);
-      gradients.push([`rgb(${r},${g},${b})`, `rgb(${r},${g},${b})`]);
+      if (r + g + b < 15) continue; // skip dark
+      entries.push({ type: "gradient", color: `rgb(${r},${g},${b})` });
       continue;
     }
 
-    // color/color4 lines (multi-color gradients)
-    if (lower.startsWith("color")) {
-      const nums = line.match(/-?\d+\.?\d*/g);
-      if (!nums || nums.length < 4) continue;
+    // COLOR / COLOR4
+    if (line.toLowerCase().startsWith("color")) {
+      const triplets = nums.slice(1); // skip the first value
+      for (let i = 0; i + 2 < triplets.length; i += 3) {
+        const r = parseInt(triplets[i]);
+        const g = parseInt(triplets[i + 1]);
+        const b = parseInt(triplets[i + 2]);
+        if (r + g + b < 15) continue; // skip dark
 
-      const rgbTriplets = [];
-      for (let i = 1; i + 2 < nums.length; i += 3) {
-        const r = parseInt(nums[i]);
-        const g = parseInt(nums[i + 1]);
-        const b = parseInt(nums[i + 2]);
-        rgbTriplets.push(`rgb(${r},${g},${b})`);
-      }
-
-      if (rgbTriplets.length === 1) {
-        gradients.push([rgbTriplets[0], rgbTriplets[0]]);
-      } else {
-        for (let i = 0; i < rgbTriplets.length - 1; i++) {
-          gradients.push([rgbTriplets[i], rgbTriplets[i + 1]]);
-        }
+        const colorStr = `rgb(${r},${g},${b})`;
+        const last = entries[entries.length - 1];
+        if (!last || last.color !== colorStr) entries.push({ type: "gradient", color: colorStr });
       }
     }
   }
 
-  return gradients;
+  return entries;
 }
 
-// Create a card for each palette
-function createCard(filename, gradients, category) {
+// Create HTML card for each table
+function createCard(filename, colors, category) {
   const card = document.createElement("div");
   card.className = "card";
 
@@ -176,20 +159,17 @@ function createCard(filename, gradients, category) {
   preview.className = "preview";
   preview.width = 400;
   preview.height = 28;
-
-  drawPreview(preview, gradients);
+  drawPreview(preview, colors);
 
   const title = document.createElement("h3");
   title.textContent = formatName(filename);
 
   const download = document.createElement("div");
   download.className = "download";
-
   const link = document.createElement("a");
-  link.href = `./${category}/${encodeURIComponent(filename)}`;
+  link.href = `./${category}/${filename}`;
   link.download = filename;
   link.textContent = "Download .PAL";
-
   download.appendChild(link);
 
   card.appendChild(preview);
@@ -199,26 +179,21 @@ function createCard(filename, gradients, category) {
   grid.appendChild(card);
 }
 
-// Draw all gradients horizontally
-function drawPreview(canvas, gradients) {
+// Draw horizontal gradient
+function drawPreview(canvas, entries) {
   const ctx = canvas.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
+  if (!entries.length) return;
 
-  if (!gradients.length) return;
-
-  const segmentWidth = width / gradients.length;
-
-  gradients.forEach((pair, i) => {
-    const grad = ctx.createLinearGradient(0, 0, segmentWidth, 0);
-    grad.addColorStop(0, pair[0]);
-    grad.addColorStop(1, pair[1]);
-    ctx.fillStyle = grad;
-    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
+  const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  entries.forEach((entry, index) => {
+    grad.addColorStop(index / (entries.length - 1), entry.color);
   });
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Beautify file names for display
+// Beautify file names
 function formatName(filename) {
   return filename
     .replace(".pal", "")
