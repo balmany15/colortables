@@ -93,7 +93,7 @@ const files = {
   ]
 };
 
-// Load all .pal files for the given category
+// Load all .pal files for a category
 async function loadCategory(category) {
   grid.innerHTML = "";
 
@@ -109,43 +109,40 @@ async function loadCategory(category) {
   }
 }
 
-// Robust parser for .pal files
+// Parse .pal file and extract gradient colors
 function parseColors(text) {
   const lines = text.split(/\r?\n/);
   const entries = [];
 
   for (let line of lines) {
     line = line.trim();
-    if (!line || line.startsWith(";")) continue;
+    if (!line || line.startsWith(";") || /^[a-z]+:/i.test(line) && !line.toLowerCase().startsWith("color")) continue;
 
-    const lower = line.toLowerCase();
     const nums = line.match(/-?\d+\.?\d*/g); // match ints or floats
-    if (!nums || nums.length < 4) continue;
+    if (!nums || nums.length < 4) continue; // need at least one RGB triplet
 
-    // SOLID colors
-    if (lower.startsWith("solidcolor")) {
+    // SOLIDCOLOR
+    if (line.toLowerCase().startsWith("solidcolor")) {
       const r = parseInt(nums[1]);
       const g = parseInt(nums[2]);
       const b = parseInt(nums[3]);
-      if (r + g + b < 15) continue; // skip black/dark placeholder
+      if (r + g + b < 15) continue; // skip dark
       entries.push({ type: "gradient", color: `rgb(${r},${g},${b})` });
+      continue;
     }
 
-    // COLOR / COLOR4 lines
-    if (lower.startsWith("color")) {
-      const triplets = nums.slice(1); // skip first value
+    // COLOR / COLOR4
+    if (line.toLowerCase().startsWith("color")) {
+      const triplets = nums.slice(1); // skip the first value
       for (let i = 0; i + 2 < triplets.length; i += 3) {
         const r = parseInt(triplets[i]);
         const g = parseInt(triplets[i + 1]);
         const b = parseInt(triplets[i + 2]);
-        if (r + g + b < 15) continue; // skip dark placeholders
+        if (r + g + b < 15) continue; // skip dark
 
-        // Only add if different from previous to avoid repeated triplets
-        const last = entries[entries.length - 1];
         const colorStr = `rgb(${r},${g},${b})`;
-        if (!last || last.color !== colorStr) {
-          entries.push({ type: "gradient", color: colorStr });
-        }
+        const last = entries[entries.length - 1];
+        if (!last || last.color !== colorStr) entries.push({ type: "gradient", color: colorStr });
       }
     }
   }
@@ -182,24 +179,21 @@ function createCard(filename, colors, category) {
   grid.appendChild(card);
 }
 
-// Draw smooth gradient preview
+// Draw horizontal gradient
 function drawPreview(canvas, entries) {
   const ctx = canvas.getContext("2d");
   if (!entries.length) return;
 
-  const width = canvas.width;
-  const height = canvas.height;
-
-  const grad = ctx.createLinearGradient(0, 0, width, 0);
+  const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
   entries.forEach((entry, index) => {
     grad.addColorStop(index / (entries.length - 1), entry.color);
   });
 
   ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, width, height);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Beautify file names for display
+// Beautify file names
 function formatName(filename) {
   return filename
     .replace(".pal", "")
