@@ -22,7 +22,7 @@ const files = {
     "AVL_BroadcastNegatives.pal",
     "Baron256.pal",
     "BaronLynx.pal",
-        "blueness.pal"
+        "blueness.pal",
     "BradP_Charlotte.pal",
     "CODE BR.pal",
     "Custom Refl.pal",
@@ -67,7 +67,7 @@ const files = {
     "ALPHA-Velo.pal",
     "BV SimuAwips.pal",
     "LOT Velo.pal",
-        "miami velo.pal"
+        "miami velo.pal",
     "NWS-Velo.pal",
     "Storm Chaser HD Velocity.pal",
     "UCAR Velo.pal"
