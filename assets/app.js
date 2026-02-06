@@ -194,15 +194,23 @@ function drawPreview(canvas, gradients) {
   const width = canvas.width;
   const height = canvas.height;
 
-  const segmentWidth = width / gradients.length;
+  if (!gradients.length) return;
 
-  gradients.forEach((pair, i) => {
-    const grad = ctx.createLinearGradient(0, 0, segmentWidth, 0);
-    grad.addColorStop(0, pair[0]);
-    grad.addColorStop(1, pair[1]);
-    ctx.fillStyle = grad;
-    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
+  const grad = ctx.createLinearGradient(0, 0, width, 0);
+
+  // Flatten all gradient stops
+  const stops = [];
+  gradients.forEach(pair => {
+    stops.push(pair[0]);
+    stops.push(pair[1]);
   });
+
+  stops.forEach((color, i) => {
+    grad.addColorStop(i / (stops.length - 1), color);
+  });
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, width, height);
 }
 
 // Beautify file names for display
