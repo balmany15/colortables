@@ -111,49 +111,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Parse .pal file and extract gradient colors
   function parseColors(text) {
-    const lines = text.split(/\r?\n/);
-    const entries = [];
+  const lines = text.split(/\r?\n/);
+  const entries = [];
 
-    for (let line of lines) {
-      line = line.trim();
-      if (!line || line.startsWith(";")) continue;
+  for (let line of lines) {
+    line = line.trim();
+    if (!line || line.startsWith(";") || line.startsWith("ND") || line.startsWith("RF")) continue;
 
-      const lower = line.toLowerCase();
+    const lower = line.toLowerCase();
+    if (!lower.startsWith("color") && !lower.startsWith("solidcolor")) continue;
 
-      // Only parse color lines
-      if (!lower.startsWith("color") && !lower.startsWith("solidcolor")) continue;
+    // Match all numbers, ignore extra spaces
+    const nums = line.match(/-?\d+/g);
+    if (!nums || nums.length < 4) continue;
 
-      const nums = line.match(/-?\d+\.?\d*/g); // match ints or floats
-      if (!nums || nums.length < 4) continue;
-
-      // SOLIDCOLOR
-      if (lower.startsWith("solidcolor")) {
-        const r = parseFloat(nums[1]);
-        const g = parseFloat(nums[2]);
-        const b = parseFloat(nums[3]);
-        if (r + g + b < 15) continue; // skip dark placeholders
-        entries.push({ type: "gradient", color: `rgb(${r},${g},${b})` });
-        continue;
-      }
-
-      // COLOR / COLOR4 lines
-      if (lower.startsWith("color")) {
-        const triplets = nums.slice(1); // skip first number (value)
-        for (let i = 0; i + 2 < triplets.length; i += 3) {
-          const r = parseFloat(triplets[i]);
-          const g = parseFloat(triplets[i + 1]);
-          const b = parseFloat(triplets[i + 2]);
-          if (r + g + b < 15) continue; // skip dark placeholder
-
-          const colorStr = `rgb(${r},${g},${b})`;
-          const last = entries[entries.length - 1];
-          if (!last || last.color !== colorStr) entries.push({ type: "gradient", color: colorStr });
-        }
-      }
+    // SOLIDCOLOR
+    if (lower.startsWith("solidcolor")) {
+      const r = parseInt(nums[1]);
+      const g = parseInt(nums[2]);
+      const b = parseInt(nums[3]);
+      entries.push({ color: `rgb(${r},${g},${b})` });
+      continue;
     }
 
-    return entries;
+    // COLOR / COLOR4
+    const triplets = [];
+    for (let i = 1; i + 2 < nums.length; i += 3) {
+      const r = parseInt(nums[i]);
+      const g = parseInt(nums[i + 1]);
+      const b = parseInt(nums[i + 2]);
+      triplets.push(`rgb(${r},${g},${b})`);
+    }
+
+    // Push consecutive pairs as gradients
+    for (let i = 0; i < triplets.length - 1; i++) {
+      entries.push({ color: triplets[i] });
+      entries.push({ color: triplets[i + 1] });
+    }
+
+    // If only one triplet, push it once
+    if (triplets.length === 1) entries.push({ color: triplets[0] });
   }
+
+  return entries;
+}
+
 
   // Create HTML card for each table
   function createCard(filename, colors, category) {
