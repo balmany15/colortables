@@ -120,7 +120,7 @@ function parseColors(text) {
 
     const lower = line.toLowerCase();
 
-    // Parse solidcolor
+    // Solidcolor lines
     if (lower.startsWith("solidcolor")) {
       const nums = line.match(/\d+/g);
       if (!nums || nums.length < 4) continue;
@@ -130,12 +130,12 @@ function parseColors(text) {
       gradients.push([`rgb(${r},${g},${b})`, `rgb(${r},${g},${b})`]);
     }
 
-    // Parse color/color4 lines (multi-color gradients)
+    // Color/Color4 lines (multi-color gradients)
     if (lower.startsWith("color")) {
       const nums = line.match(/-?\d+\.?\d*/g);
       if (!nums || nums.length < 4) continue;
 
-      // nums[0] = DBZ/value (ignored for preview)
+      // Extract RGB triplets (skip first value which is the data point)
       const rgbTriplets = [];
       for (let i = 1; i + 2 < nums.length; i += 3) {
         const r = parseInt(nums[i]);
@@ -144,14 +144,13 @@ function parseColors(text) {
         rgbTriplets.push(`rgb(${r},${g},${b})`);
       }
 
-      // Push consecutive pairs as gradients
-      for (let i = 0; i < rgbTriplets.length - 1; i++) {
-        gradients.push([rgbTriplets[i], rgbTriplets[i + 1]]);
-      }
-
-      // If only one color, repeat it
+      // Convert consecutive triplets to gradients
       if (rgbTriplets.length === 1) {
         gradients.push([rgbTriplets[0], rgbTriplets[0]]);
+      } else {
+        for (let i = 0; i < rgbTriplets.length - 1; i++) {
+          gradients.push([rgbTriplets[i], rgbTriplets[i + 1]]);
+        }
       }
     }
   }
