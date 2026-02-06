@@ -78,6 +78,24 @@ async function loadCategory(category) {
     ],
     ptype: [
       // Add your ptype .pal files here
+              "FOXWEATHER-PMM.pal"
+              "Ptype_IP2.pal"
+  "Ptype_ZR3.pal"
+  "WSI-PMM.pal"
+  "WU-IP.pal"
+  "WU-Rain.pal"
+  "WU-Snow.pal"
+  "ra-stormlab.pal"
+  "ra-twc-dark.pal"
+  "ra-twc-solid.pal"
+  "ra-twc.pal"
+  "ra-wsi.pal"
+    "sn-gray.pal"
+  "sn-hunter.pal"
+  "sn-max.pal"
+  "sn-purple.pal"
+  "sn-tracker.pal"
+
     ]
   };
 
