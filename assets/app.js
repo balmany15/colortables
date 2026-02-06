@@ -22,7 +22,7 @@ const files = {
     "AVL_BroadcastNegatives.pal",
     "Baron256.pal",
     "BaronLynx.pal",
-        "blueness.pal",
+    "blueness.pal",
     "BradP_Charlotte.pal",
     "CODE BR.pal",
     "Custom Refl.pal",
@@ -67,7 +67,7 @@ const files = {
     "ALPHA-Velo.pal",
     "BV SimuAwips.pal",
     "LOT Velo.pal",
-        "miami velo.pal",
+    "miami velo.pal",
     "NWS-Velo.pal",
     "Storm Chaser HD Velocity.pal",
     "UCAR Velo.pal"
@@ -76,7 +76,7 @@ const files = {
     "FOXWEATHER-PMM.pal",
     "Ptype_IP2.pal",
     "Ptype_ZR3.pal",
-        "ra-stormlab.pal",
+    "ra-stormlab.pal",
     "ra-twc-dark.pal",
     "ra-twc-solid.pal",
     "ra-twc.pal",
@@ -85,7 +85,7 @@ const files = {
     "sn-hunter.pal",
     "sn-max.pal",
     "sn-purple.pal",
-    "sn-tracker.pal"
+    "sn-tracker.pal",
     "WSI-PMM.pal",
     "WU-IP.pal",
     "WU-Rain.pal",
@@ -135,7 +135,6 @@ function parseColors(text) {
       const nums = line.match(/-?\d+\.?\d*/g);
       if (!nums || nums.length < 4) continue;
 
-      // Extract RGB triplets (skip first value which is the data point)
       const rgbTriplets = [];
       for (let i = 1; i + 2 < nums.length; i += 3) {
         const r = parseInt(nums[i]);
@@ -144,7 +143,6 @@ function parseColors(text) {
         rgbTriplets.push(`rgb(${r},${g},${b})`);
       }
 
-      // Convert consecutive triplets to gradients
       if (rgbTriplets.length === 1) {
         gradients.push([rgbTriplets[0], rgbTriplets[0]]);
       } else {
