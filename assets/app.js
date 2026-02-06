@@ -26,7 +26,6 @@ const files = {
     "CODE BR.pal",
     "Custom Refl.pal",
     "Custom Refl2.pal",
-    "Custom Refl2 (1).pal",
     "Custom Z2.pal",
     "Dark Z2.pal",
     "DuPageWx.pal",
