@@ -98,6 +98,7 @@ function parseColors(text) {
 
     const lower = line.toLowerCase();
 
+    // 1️⃣ solidcolor = always gradient stops
     if (lower.startsWith("solidcolor")) {
       const nums = line.match(/\d+/g);
       if (!nums || nums.length < 4) continue;
@@ -111,10 +112,29 @@ function parseColors(text) {
         color: `rgb(${r},${g},${b})`
       });
     }
+
+    // 2️⃣ color / color4 = also gradient stops
+    if (lower.startsWith("color")) {
+      const nums = line.match(/\d+/g);
+      if (!nums || nums.length < 4) continue;
+
+      // Some lines have multiple RGB triplets, handle all
+      for (let i = 1; i + 2 < nums.length; i += 3) {
+        const r = parseInt(nums[i]);
+        const g = parseInt(nums[i + 1]);
+        const b = parseInt(nums[i + 2]);
+
+        entries.push({
+          type: "gradient",
+          color: `rgb(${r},${g},${b})`
+        });
+      }
+    }
   }
 
   return entries;
 }
+
 
 // Create card for each color table
 function createCard(filename, colors, category) {
