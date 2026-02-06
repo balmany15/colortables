@@ -1,0 +1,142 @@
+/* ===== Base Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #0b0e13;
+  color: #e6e6e6;
+}
+
+/* ===== Header ===== */
+header {
+  text-align: center;
+  padding: 24px 16px 12px;
+  border-bottom: 1px solid #1f2430;
+}
+
+header h1 {
+  margin: 0 0 14px;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Navigation ===== */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+nav button {
+  background: #151a24;
+  color: #cfd6e4;
+  border: 1px solid #252c3a;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+nav button:hover {
+  background: #1c2230;
+}
+
+nav button.active {
+  background: #2a63ff;
+  border-color: #2a63ff;
+  color: #fff;
+}
+
+/* ===== Main Content ===== */
+main {
+  padding: 32px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== Grid ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* ===== Card ===== */
+.card {
+  background: #121722;
+  border: 1px solid #1f2430;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Thumbnail ===== */
+.card img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 6px;
+  background: #000;
+  border: 1px solid #2a2f3d;
+  margin-bottom: 12px;
+}
+
+/* Optional fallback styling if image fails */
+.card img.placeholder {
+  background: repeating-linear-gradient(
+    45deg,
+    #1a1f2b,
+    #1a1f2b 10px,
+    #23293a 10px,
+    #23293a 20px
+  );
+}
+
+/* ===== Name ===== */
+.card .name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 6px 0 12px;
+  color: #e9edf7;
+}
+
+/* ===== Download Button ===== */
+.card a.download {
+  margin-top: auto;
+  text-decoration: none;
+  background: #2a63ff;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.card a.download:hover {
+  background: #1f4fe0;
+}
+
+/* ===== Footer (optional) ===== */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.8rem;
+  color: #8b93a7;
+}
