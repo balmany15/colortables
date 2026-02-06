@@ -22,7 +22,6 @@ const files = {
     "AVL_BroadcastNegatives.pal",
     "Baron256.pal",
     "BaronLynx.pal",
-    "blueness.pal",
     "BradP_Charlotte.pal",
     "CODE BR.pal",
     "Custom Refl.pal",
@@ -61,21 +60,26 @@ const files = {
     "WDTB_Bright.pal",
     "WDTD Z.pal",
     "WxTap_BR.pal",
-    "WxTap_RadarLabHD.pal"
+    "WxTap_RadarLabHD.pal",
+    "blueness.pal"
   ],
   velocity: [
     "ALPHA-Velo.pal",
     "BV SimuAwips.pal",
     "LOT Velo.pal",
-    "miami velo.pal",
     "NWS-Velo.pal",
     "Storm Chaser HD Velocity.pal",
-    "UCAR Velo.pal"
+    "UCAR Velo.pal",
+    "miami velo.pal"
   ],
   ptype: [
     "FOXWEATHER-PMM.pal",
     "Ptype_IP2.pal",
     "Ptype_ZR3.pal",
+    "WSI-PMM.pal",
+    "WU-IP.pal",
+    "WU-Rain.pal",
+    "WU-Snow.pal",
     "ra-stormlab.pal",
     "ra-twc-dark.pal",
     "ra-twc-solid.pal",
@@ -85,11 +89,7 @@ const files = {
     "sn-hunter.pal",
     "sn-max.pal",
     "sn-purple.pal",
-    "sn-tracker.pal",
-    "WSI-PMM.pal",
-    "WU-IP.pal",
-    "WU-Rain.pal",
-    "WU-Snow.pal"
+    "sn-tracker.pal"
   ]
 };
 
@@ -101,6 +101,7 @@ async function loadCategory(category) {
       const response = await fetch(`./${category}/${file}`);
       const text = await response.text();
       const gradients = parseColors(text);
+
       createCard(file, gradients, category);
     } catch (err) {
       console.error(`Failed to load ${file}:`, err);
@@ -108,7 +109,7 @@ async function loadCategory(category) {
   }
 }
 
-// Parse any color line and generate gradient pairs
+// Parses color lines, including multi-RGB gradients per line
 function parseColors(text) {
   const lines = text.split(/\r?\n/);
   const gradients = [];
@@ -119,27 +120,38 @@ function parseColors(text) {
 
     const lower = line.toLowerCase();
 
-    if (lower.startsWith("solidcolor") || lower.startsWith("color")) {
-      // Grab all numbers (allow negative and 0-padded)
-      const nums = line.match(/-?\d+/g);
+    // Parse solidcolor
+    if (lower.startsWith("solidcolor")) {
+      const nums = line.match(/\d+/g);
+      if (!nums || nums.length < 4) continue;
+      const r = parseInt(nums[1]);
+      const g = parseInt(nums[2]);
+      const b = parseInt(nums[3]);
+      gradients.push([`rgb(${r},${g},${b})`, `rgb(${r},${g},${b})`]);
+    }
+
+    // Parse color/color4 lines (multi-color gradients)
+    if (lower.startsWith("color")) {
+      const nums = line.match(/-?\d+\.?\d*/g);
       if (!nums || nums.length < 4) continue;
 
-      // skip the first number (value), then make RGB triplets
+      // nums[0] = DBZ/value (ignored for preview)
       const rgbTriplets = [];
       for (let i = 1; i + 2 < nums.length; i += 3) {
-        const r = parseInt(nums[i], 10);
-        const g = parseInt(nums[i + 1], 10);
-        const b = parseInt(nums[i + 2], 10);
+        const r = parseInt(nums[i]);
+        const g = parseInt(nums[i + 1]);
+        const b = parseInt(nums[i + 2]);
         rgbTriplets.push(`rgb(${r},${g},${b})`);
       }
 
-      // push consecutive triplets as gradient pairs
+      // Push consecutive pairs as gradients
+      for (let i = 0; i < rgbTriplets.length - 1; i++) {
+        gradients.push([rgbTriplets[i], rgbTriplets[i + 1]]);
+      }
+
+      // If only one color, repeat it
       if (rgbTriplets.length === 1) {
         gradients.push([rgbTriplets[0], rgbTriplets[0]]);
-      } else {
-        for (let i = 0; i < rgbTriplets.length - 1; i++) {
-          gradients.push([rgbTriplets[i], rgbTriplets[i + 1]]);
-        }
       }
     }
   }
@@ -179,29 +191,21 @@ function createCard(filename, gradients, category) {
   grid.appendChild(card);
 }
 
-// Draw all gradients across full canvas width
+// Draw all gradients horizontally
 function drawPreview(canvas, gradients) {
   const ctx = canvas.getContext("2d");
   const width = canvas.width;
   const height = canvas.height;
 
-  if (!gradients.length) return;
+  const segmentWidth = width / gradients.length;
 
-  const grad = ctx.createLinearGradient(0, 0, width, 0);
-
-  // flatten all gradient stops
-  const stops = [];
-  gradients.forEach(pair => {
-    stops.push(pair[0]);
-    stops.push(pair[1]);
+  gradients.forEach((pair, i) => {
+    const grad = ctx.createLinearGradient(0, 0, segmentWidth, 0);
+    grad.addColorStop(0, pair[0]);
+    grad.addColorStop(1, pair[1]);
+    ctx.fillStyle = grad;
+    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
   });
-
-  stops.forEach((color, i) => {
-    grad.addColorStop(i / (stops.length - 1), color);
-  });
-
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, width, height);
 }
 
 // Beautify file names for display
