@@ -94,7 +94,7 @@ async function loadCategory(category) {
 
 function parseColors(text) {
   const lines = text.split(/\r?\n/);
-  const colors = [];
+  const entries = [];
 
   for (let line of lines) {
     line = line.trim();
@@ -102,22 +102,41 @@ function parseColors(text) {
 
     const lower = line.toLowerCase();
 
+    if (lower.startsWith("solidcolor")) {
+      const nums = line.match(/\d+/g);
+      if (!nums || nums.length < 4) continue;
+
+      const r = parseInt(nums[1]);
+      const g = parseInt(nums[2]);
+      const b = parseInt(nums[3]);
+
+      entries.push({
+        type: "solid",
+        color: `rgb(${r},${g},${b})`
+      });
+    }
+
     if (lower.startsWith("color")) {
       const nums = line.match(/\d+/g);
       if (!nums || nums.length < 4) continue;
 
-      // Extract RGB triplets
+      // color entries may define gradients (multiple RGBs)
       for (let i = 1; i + 2 < nums.length; i += 3) {
         const r = parseInt(nums[i]);
         const g = parseInt(nums[i + 1]);
         const b = parseInt(nums[i + 2]);
-        colors.push(`rgb(${r},${g},${b})`);
+
+        entries.push({
+          type: "gradient",
+          color: `rgb(${r},${g},${b})`
+        });
       }
     }
   }
 
-  return colors;
+  return entries;
 }
+
 
 function createCard(filename, colors, category) {
   const card = document.createElement("div");
@@ -150,17 +169,45 @@ function createCard(filename, colors, category) {
   grid.appendChild(card);
 }
 
-function drawPreview(canvas, colors) {
+function drawPreview(canvas, entries) {
   const ctx = canvas.getContext("2d");
-  if (!colors.length) return;
+  if (!entries.length) return;
 
-  const segmentWidth = canvas.width / colors.length;
+  const width = canvas.width;
+  const height = canvas.height;
+
+  const gradientEntries = entries.filter(e => e.type === "gradient");
+  const solidEntries = entries.filter(e => e.type === "solid");
+
+  // If there are gradient colors, draw a smooth gradient
+  if (gradientEntries.length > 1) {
+    const grad = ctx.createLinearGradient(0, 0, width, 0);
+
+    gradientEntries.forEach((entry, index) => {
+      grad.addColorStop(
+        index / (gradientEntries.length - 1),
+        entry.color
+      );
+    });
+
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, height);
+    return;
+  }
+
+  // Otherwise fall back to solid blocks
+  const colors = solidEntries.length
+    ? solidEntries.map(e => e.color)
+    : entries.map(e => e.color);
+
+  const segmentWidth = width / colors.length;
 
   colors.forEach((color, i) => {
     ctx.fillStyle = color;
-    ctx.fillRect(i * segmentWidth, 0, segmentWidth, canvas.height);
+    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
   });
 }
+
 
 function formatName(filename) {
   return filename
