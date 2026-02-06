@@ -97,15 +97,18 @@ function parseColors(text) {
     if (!line || line.startsWith(";")) continue;
 
     const lower = line.toLowerCase();
+    const nums = line.match(/-?\d+\.?\d*/g); // match ints or floats
 
-    // 1️⃣ solidcolor = always gradient stops
+    if (!nums || nums.length < 4) continue;
+
+    // SOLID colors
     if (lower.startsWith("solidcolor")) {
-      const nums = line.match(/\d+/g);
-      if (!nums || nums.length < 4) continue;
-
       const r = parseInt(nums[1]);
       const g = parseInt(nums[2]);
       const b = parseInt(nums[3]);
+
+      // skip super dark placeholder colors
+      if (r + g + b < 15) continue;
 
       entries.push({
         type: "gradient",
@@ -113,16 +116,16 @@ function parseColors(text) {
       });
     }
 
-    // 2️⃣ color / color4 = also gradient stops
+    // COLOR / COLOR4 lines
     if (lower.startsWith("color")) {
-      const nums = line.match(/\d+/g);
-      if (!nums || nums.length < 4) continue;
-
-      // Some lines have multiple RGB triplets, handle all
+      // start from index 1 (skip the value)
       for (let i = 1; i + 2 < nums.length; i += 3) {
         const r = parseInt(nums[i]);
         const g = parseInt(nums[i + 1]);
         const b = parseInt(nums[i + 2]);
+
+        // skip very dark placeholders
+        if (r + g + b < 15) continue;
 
         entries.push({
           type: "gradient",
@@ -134,6 +137,7 @@ function parseColors(text) {
 
   return entries;
 }
+
 
 
 // Create card for each color table
