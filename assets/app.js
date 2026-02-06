@@ -139,7 +139,13 @@ function parseColors(text) {
         const g = parseInt(triplets[i + 1]);
         const b = parseInt(triplets[i + 2]);
         if (r + g + b < 15) continue; // skip dark placeholders
-        entries.push({ type: "gradient", color: `rgb(${r},${g},${b})` });
+
+        // Only add if different from previous to avoid repeated triplets
+        const last = entries[entries.length - 1];
+        const colorStr = `rgb(${r},${g},${b})`;
+        if (!last || last.color !== colorStr) {
+          entries.push({ type: "gradient", color: colorStr });
+        }
       }
     }
   }
