@@ -111,10 +111,15 @@ function parseColors(text) {
       const b = parseInt(nums[3]);
 
       entries.push({
-        type: "solid",
+        type: "gradient",
         color: `rgb(${r},${g},${b})`
       });
     }
+  }
+
+  return entries;
+}
+
 
     if (lower.startsWith("color")) {
       const nums = line.match(/\d+/g);
