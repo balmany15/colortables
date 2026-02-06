@@ -22,6 +22,7 @@ const files = {
     "AVL_BroadcastNegatives.pal",
     "Baron256.pal",
     "BaronLynx.pal",
+        "blueness.pal"
     "BradP_Charlotte.pal",
     "CODE BR.pal",
     "Custom Refl.pal",
@@ -60,27 +61,22 @@ const files = {
     "WDTB_Bright.pal",
     "WDTD Z.pal",
     "WxTap_BR.pal",
-    "WxTap_RadarLabHD.pal",
-    "blueness.pal"
+    "WxTap_RadarLabHD.pal"
   ],
   velocity: [
     "ALPHA-Velo.pal",
     "BV SimuAwips.pal",
     "LOT Velo.pal",
+        "miami velo.pal"
     "NWS-Velo.pal",
     "Storm Chaser HD Velocity.pal",
-    "UCAR Velo.pal",
-    "miami velo.pal"
+    "UCAR Velo.pal"
   ],
   ptype: [
     "FOXWEATHER-PMM.pal",
     "Ptype_IP2.pal",
     "Ptype_ZR3.pal",
-    "WSI-PMM.pal",
-    "WU-IP.pal",
-    "WU-Rain.pal",
-    "WU-Snow.pal",
-    "ra-stormlab.pal",
+        "ra-stormlab.pal",
     "ra-twc-dark.pal",
     "ra-twc-solid.pal",
     "ra-twc.pal",
@@ -90,6 +86,10 @@ const files = {
     "sn-max.pal",
     "sn-purple.pal",
     "sn-tracker.pal"
+    "WSI-PMM.pal",
+    "WU-IP.pal",
+    "WU-Rain.pal",
+    "WU-Snow.pal"
   ]
 };
 
