@@ -3,6 +3,7 @@ const navButtons = document.querySelectorAll(".nav-btn");
 
 let currentCategory = "reflectivity";
 
+// Navigation click handling
 navButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     navButtons.forEach(b => b.classList.remove("active"));
@@ -12,86 +13,81 @@ navButtons.forEach(btn => {
   });
 });
 
+// Initial load
 loadCategory(currentCategory);
 
 async function loadCategory(category) {
   grid.innerHTML = "";
 
-  // GitHub Pages requires explicit file listing
-  // You will maintain this list per folder
+  // Explicit file listing per folder
   const files = {
-    reflectivity: [],
-    velocity: [],
-    ptype: []
+    reflectivity: [
+      "AVL_BroadcastNegatives.pal",
+      "Baron256.pal",
+      "BaronLynx.pal",
+      "BradP_Charlotte.pal",
+      "CODE BR.pal",
+      "Custom Refl.pal",
+      "Custom Refl2.pal",
+      "Custom Refl2 (1).pal",
+      "Custom Z2.pal",
+      "Dark Z2.pal",
+      "DuPageWx.pal",
+      "DuPageWxWith Negs.pal",
+      "EAX Z.pal",
+      "FOXweather.pal",
+      "GMEDreflectivity.pal",
+      "HD_SuperRes.pal",
+      "Hunter_Refl.pal",
+      "Ivan.pal",
+      "NSSL.pal",
+      "NSSL2.pal",
+      "NSSL3.pal",
+      "NWS_CRH.pal",
+      "NWS_Default.pal",
+      "NWS_Deluth.pal",
+      "NWS_KLOT.pal",
+      "NWS_KLOT2.pal",
+      "NWS_LaCrosse.pal",
+      "NWS_Louisville.pal",
+      "NWS_NSSL-OUN.pal",
+      "NWS_SR.pal",
+      "NWS_Wichita.pal",
+      "PhasedArray.pal",
+      "RadarOmega.pal",
+      "RadarScope.pal",
+      "SimuAwipsRC.pal",
+      "SolidBRtrans.pal",
+      "SolidTV.pal",
+      "WDTB Z.pal",
+      "WDTB_Bright.pal",
+      "WDTD Z.pal",
+      "WxTap_BR.pal",
+      "WxTap_RadarLabHD.pal",
+      "blueness.pal"
+    ],
+    velocity: [
+      // Add your velocity .pal files here
+    ],
+    ptype: [
+      // Add your ptype .pal files here
+    ]
   };
 
-  // 🔧 EDIT THIS PART:
-  // Add your .pal filenames per folder
-  files.reflectivity = [
-     "AVL_BroadcastNegatives.pal",
-    "Baron256.pal",
-     "BaronLynx.pal",
-    "BradP_Charlotte.pal",
-    "CODE BR.pal",
-    "Custom Refl.pal",
-    "Custom Refl2.pal",
-    "Custom Refl2 (1).pal",
-    "Custom Z2.pal",
-        "Dark Z2.pal",
-        "DuPageWx.pal",
-        "DuPageWxWith Negs.pal",
-    "EAX Z.pal",
-        "FOXweather.pal",
-            "GMEDreflectivity.pal",
-            "HD_SuperRes.pal",
-            "Hunter_Refl.pal",
-            "Ivan.pal",
-            "NSSL.pal",
-            "NSSL2.pal",
-            "NSSL3.pal",
-            "NWS_CRH.pal",
-            "NWS_Default.pal",
-            "NWS_Deluth.pal",
-            "NWS_KLOT.pal",
-            "NWS_KLOT2.pal",
-            "NWS_LaCrosse.pal",
-            "NWS_Louisville.pal",
-            "NWS_NSSL-OUN.pal",
-            "NWS_SR.pal",
-            "NWS_Wichita.pal",
-            "PhasedArray.pal",
-            "RadarOmega.pal",
-            "RadarScope.pal",
-            "SimuAwipsRC.pal",
-            "SolidBRtrans.pal",
-            "SolidTV.pal",
-            "WDTB Z.pal",
-            "WDTB_Bright.pal",
-            "WDTD Z.pal",
-            "WxTap_BR.pal",
-            "WxTap_RadarLabHD.pal",
-            "blueness.pal",
-
-
-  ];
-
-  files.velocity = [
-    // "example_velocity.pal"
-  ];
-
-  files.ptype = [
-    // "example_ptype.pal"
-  ];
-
   for (const file of files[category]) {
-    const response = await fetch(`./${category}/${file}`);
-    const text = await response.text();
-    const colors = parseColors(text);
+    try {
+      const response = await fetch(`./${category}/${file}`);
+      const text = await response.text();
+      const colors = parseColors(text);
 
-    createCard(file, colors, category);
+      createCard(file, colors, category);
+    } catch (err) {
+      console.error(`Failed to load ${file}:`, err);
+    }
   }
 }
 
+// Parse only solidcolor entries for smooth gradient preview
 function parseColors(text) {
   const lines = text.split(/\r?\n/);
   const entries = [];
@@ -120,29 +116,7 @@ function parseColors(text) {
   return entries;
 }
 
-
-    if (lower.startsWith("color")) {
-      const nums = line.match(/\d+/g);
-      if (!nums || nums.length < 4) continue;
-
-      // color entries may define gradients (multiple RGBs)
-      for (let i = 1; i + 2 < nums.length; i += 3) {
-        const r = parseInt(nums[i]);
-        const g = parseInt(nums[i + 1]);
-        const b = parseInt(nums[i + 2]);
-
-        entries.push({
-          type: "gradient",
-          color: `rgb(${r},${g},${b})`
-        });
-      }
-    }
-  }
-
-  return entries;
-}
-
-
+// Create card for each color table
 function createCard(filename, colors, category) {
   const card = document.createElement("div");
   card.className = "card";
@@ -174,6 +148,7 @@ function createCard(filename, colors, category) {
   grid.appendChild(card);
 }
 
+// Draw gradient preview for each table
 function drawPreview(canvas, entries) {
   const ctx = canvas.getContext("2d");
   if (!entries.length) return;
@@ -181,39 +156,17 @@ function drawPreview(canvas, entries) {
   const width = canvas.width;
   const height = canvas.height;
 
-  const gradientEntries = entries.filter(e => e.type === "gradient");
-  const solidEntries = entries.filter(e => e.type === "solid");
-
-  // If there are gradient colors, draw a smooth gradient
-  if (gradientEntries.length > 1) {
-    const grad = ctx.createLinearGradient(0, 0, width, 0);
-
-    gradientEntries.forEach((entry, index) => {
-      grad.addColorStop(
-        index / (gradientEntries.length - 1),
-        entry.color
-      );
-    });
-
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, width, height);
-    return;
-  }
-
-  // Otherwise fall back to solid blocks
-  const colors = solidEntries.length
-    ? solidEntries.map(e => e.color)
-    : entries.map(e => e.color);
-
-  const segmentWidth = width / colors.length;
-
-  colors.forEach((color, i) => {
-    ctx.fillStyle = color;
-    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
+  // Always treat entries as gradient stops
+  const grad = ctx.createLinearGradient(0, 0, width, 0);
+  entries.forEach((entry, index) => {
+    grad.addColorStop(index / (entries.length - 1), entry.color);
   });
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, width, height);
 }
 
-
+// Beautify file names for display
 function formatName(filename) {
   return filename
     .replace(".pal", "")
