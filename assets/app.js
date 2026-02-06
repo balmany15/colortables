@@ -184,24 +184,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Draw horizontal gradient
-  function drawPreview(canvas, entries) {
-    const ctx = canvas.getContext("2d");
-    if (!entries.length) return;
+function drawPreview(canvas, entries) {
+  const ctx = canvas.getContext("2d");
+  const width = canvas.width;
+  const height = canvas.height;
 
-    const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    entries.forEach((entry, index) => {
-      grad.addColorStop(index / (entries.length - 1), entry.color);
-    });
+  if (!entries.length) return;
 
+  const segmentWidth = width / entries.length;
+
+  entries.forEach((entry, i) => {
+    const grad = ctx.createLinearGradient(i * segmentWidth, 0, (i + 1) * segmentWidth, 0);
+    grad.addColorStop(0, entry.color);
+    grad.addColorStop(1, entry.color); // if you have a gradient object, use entry.colorStart/End
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
+    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
+  });
+}
 
-  // Beautify file names
-  function formatName(filename) {
-    return filename
-      .replace(".pal", "")
-      .replace(/[_-]/g, " ")
-      .replace(/\b\w/g, c => c.toUpperCase());
-  }
-});
