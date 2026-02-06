@@ -1,0 +1,36 @@
+.card {
+  background: #1b1b1b;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 28px;
+  object-fit: cover;
+  image-rendering: pixelated;
+  border-radius: 4px;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.download-btn {
+  text-align: center;
+  padding: 6px;
+  background: #2e7cff;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+}
