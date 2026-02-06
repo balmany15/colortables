@@ -68,6 +68,13 @@ async function loadCategory(category) {
     ],
     velocity: [
       // Add your velocity .pal files here
+            "ALPHA-Velo.pal"
+            "BV SimuAwips.pal"
+        "LOT Velo.pal"
+        "NWS-Velo.pal"
+        "Storm Chaser HD Velocity.pal"
+        "UCAR Velo.pal"
+        "miami velo.pal"
     ],
     ptype: [
       // Add your ptype .pal files here
