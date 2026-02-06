@@ -98,86 +98,115 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const file of files[category]) {
       try {
+        // Encode filename for spaces/parentheses
         const response = await fetch(`./${category}/${encodeURIComponent(file)}`);
         const text = await response.text();
-        const entries = parseColors(text);
-        createCard(file, entries, category);
+        const colors = parseColors(text);
+        createCard(file, colors, category);
       } catch (err) {
         console.error(`Failed to load ${file}:`, err);
       }
     }
   }
 
-// Parse .pal file and extract gradient colors
-function parseColors(text) {
-  const lines = text.split(/\r?\n/);
-  const entries = [];
+  // Parse .pal file and extract gradient colors
+  function parseColors(text) {
+    const lines = text.split(/\r?\n/);
+    const entries = [];
 
-  for (let line of lines) {
-    line = line.trim();
-    if (!line || line.startsWith(";")) continue;
+    for (let line of lines) {
+      line = line.trim();
+      if (!line || line.startsWith(";")) continue;
 
-    const lower = line.toLowerCase();
+      const lower = line.toLowerCase();
 
-    // Only parse color lines
-    if (!lower.startsWith("color") && !lower.startsWith("solidcolor")) continue;
+      // Only parse color lines
+      if (!lower.startsWith("color") && !lower.startsWith("solidcolor")) continue;
 
-    const nums = line.match(/-?\d+\.?\d*/g); // match ints/floats
-    if (!nums || nums.length < 4) continue;
+      const nums = line.match(/-?\d+\.?\d*/g); // match ints/floats
+      if (!nums || nums.length < 4) continue;
 
-    // SOLIDCOLOR lines
-    if (lower.startsWith("solidcolor")) {
-      const r = parseInt(nums[1]);
-      const g = parseInt(nums[2]);
-      const b = parseInt(nums[3]);
-      entries.push({ start: `rgb(${r},${g},${b})`, end: `rgb(${r},${g},${b})` });
-      continue;
-    }
+      // SOLIDCOLOR lines
+      if (lower.startsWith("solidcolor")) {
+        const r = parseInt(nums[1]);
+        const g = parseInt(nums[2]);
+        const b = parseInt(nums[3]);
+        entries.push({ start: `rgb(${r},${g},${b})`, end: `rgb(${r},${g},${b})` });
+        continue;
+      }
 
-    // COLOR / COLOR4 lines
-    // nums[0] = value (DBZ/KTS/etc)
-    const triplets = [];
-    for (let i = 1; i + 2 < nums.length; i += 3) {
-      const r = parseInt(nums[i]);
-      const g = parseInt(nums[i + 1]);
-      const b = parseInt(nums[i + 2]);
-      triplets.push(`rgb(${r},${g},${b})`);
-    }
+      // COLOR / COLOR4 lines
+      // nums[0] = value (DBZ/KTS/etc)
+      const triplets = [];
+      for (let i = 1; i + 2 < nums.length; i += 3) {
+        const r = parseInt(nums[i]);
+        const g = parseInt(nums[i + 1]);
+        const b = parseInt(nums[i + 2]);
+        triplets.push(`rgb(${r},${g},${b})`);
+      }
 
-    if (triplets.length === 1) {
-      // Single color → solid
-      entries.push({ start: triplets[0], end: triplets[0] });
-    } else {
-      // Multiple colors → create exact gradients between each consecutive pair
-      for (let i = 0; i < triplets.length - 1; i++) {
-        entries.push({ start: triplets[i], end: triplets[i + 1] });
+      if (triplets.length === 1) {
+        // Single color → solid
+        entries.push({ start: triplets[0], end: triplets[0] });
+      } else {
+        // Multiple colors → create exact gradients between each consecutive pair
+        for (let i = 0; i < triplets.length - 1; i++) {
+          entries.push({ start: triplets[i], end: triplets[i + 1] });
+        }
       }
     }
+
+    return entries;
   }
 
-  return entries;
-}
+  // Create HTML card for each table
+  function createCard(filename, colors, category) {
+    const card = document.createElement("div");
+    card.className = "card";
 
-// Draw horizontal gradient exactly as defined (solid or multi-color)
-function drawPreview(canvas, entries) {
-  const ctx = canvas.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
+    const preview = document.createElement("canvas");
+    preview.className = "preview";
+    preview.width = 400;
+    preview.height = 28;
+    drawPreview(preview, colors);
 
-  if (!entries.length) return;
+    const title = document.createElement("h3");
+    title.textContent = formatName(filename);
 
-  const segmentWidth = width / entries.length;
+    const download = document.createElement("div");
+    download.className = "download";
+    const link = document.createElement("a");
+    link.href = `./${category}/${encodeURIComponent(filename)}`;
+    link.download = filename;
+    link.textContent = "Download .PAL";
+    download.appendChild(link);
 
-  entries.forEach((entry, i) => {
-    const grad = ctx.createLinearGradient(i * segmentWidth, 0, (i + 1) * segmentWidth, 0);
-    grad.addColorStop(0, entry.start);
-    grad.addColorStop(1, entry.end);
+    card.appendChild(preview);
+    card.appendChild(title);
+    card.appendChild(download);
 
-    ctx.fillStyle = grad;
-    ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
-  });
-}
+    grid.appendChild(card);
+  }
 
+  // Draw horizontal gradient exactly as defined (solid or multi-color)
+  function drawPreview(canvas, entries) {
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+
+    if (!entries.length) return;
+
+    const segmentWidth = width / entries.length;
+
+    entries.forEach((entry, i) => {
+      const grad = ctx.createLinearGradient(i * segmentWidth, 0, (i + 1) * segmentWidth, 0);
+      grad.addColorStop(0, entry.start);
+      grad.addColorStop(1, entry.end);
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(i * segmentWidth, 0, segmentWidth, height);
+    });
+  }
 
   // Beautify file names
   function formatName(filename) {
