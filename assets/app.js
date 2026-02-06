@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const file of files[category]) {
       try {
-        // Encode the filename for spaces/parentheses
         const response = await fetch(`./${category}/${encodeURIComponent(file)}`);
         const text = await response.text();
         const colors = parseColors(text);
@@ -109,55 +108,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Parse .pal file and extract gradient colors
+  // Robust parser for .pal files
   function parseColors(text) {
-  const lines = text.split(/\r?\n/);
-  const entries = [];
+    const lines = text.split(/\r?\n/);
+    const entries = [];
 
-  for (let line of lines) {
-    line = line.trim();
-    if (!line || line.startsWith(";") || line.startsWith("ND") || line.startsWith("RF")) continue;
+    for (let line of lines) {
+      line = line.trim();
+      if (!line || line.startsWith(";") || line.startsWith("ND") || line.startsWith("RF")) continue;
 
-    const lower = line.toLowerCase();
-    if (!lower.startsWith("color") && !lower.startsWith("solidcolor")) continue;
+      const lower = line.toLowerCase();
+      if (!lower.startsWith("color") && !lower.startsWith("solidcolor")) continue;
 
-    // Match all numbers, ignore extra spaces
-    const nums = line.match(/-?\d+/g);
-    if (!nums || nums.length < 4) continue;
+      const nums = line.match(/-?\d+/g);
+      if (!nums || nums.length < 4) continue;
 
-    // SOLIDCOLOR
-    if (lower.startsWith("solidcolor")) {
-      const r = parseInt(nums[1]);
-      const g = parseInt(nums[2]);
-      const b = parseInt(nums[3]);
-      entries.push({ color: `rgb(${r},${g},${b})` });
-      continue;
+      // SOLIDCOLOR
+      if (lower.startsWith("solidcolor")) {
+        const r = parseInt(nums[1]);
+        const g = parseInt(nums[2]);
+        const b = parseInt(nums[3]);
+        entries.push({ color: `rgb(${r},${g},${b})` });
+        continue;
+      }
+
+      // COLOR / COLOR4 lines with multiple triplets
+      const triplets = [];
+      for (let i = 1; i + 2 < nums.length; i += 3) {
+        const r = parseInt(nums[i]);
+        const g = parseInt(nums[i + 1]);
+        const b = parseInt(nums[i + 2]);
+        triplets.push(`rgb(${r},${g},${b})`);
+      }
+
+      // Push consecutive colors for gradient
+      for (let i = 0; i < triplets.length - 1; i++) {
+        entries.push({ color: triplets[i] });
+        entries.push({ color: triplets[i + 1] });
+      }
+
+      // If only one triplet, push it once
+      if (triplets.length === 1) entries.push({ color: triplets[0] });
     }
 
-    // COLOR / COLOR4
-    const triplets = [];
-    for (let i = 1; i + 2 < nums.length; i += 3) {
-      const r = parseInt(nums[i]);
-      const g = parseInt(nums[i + 1]);
-      const b = parseInt(nums[i + 2]);
-      triplets.push(`rgb(${r},${g},${b})`);
-    }
-
-    // Push consecutive pairs as gradients
-    for (let i = 0; i < triplets.length - 1; i++) {
-      entries.push({ color: triplets[i] });
-      entries.push({ color: triplets[i + 1] });
-    }
-
-    // If only one triplet, push it once
-    if (triplets.length === 1) entries.push({ color: triplets[0] });
+    return entries;
   }
 
-  return entries;
-}
-
-
-  // Create HTML card for each table
+  // Create card for each palette
   function createCard(filename, colors, category) {
     const card = document.createElement("div");
     card.className = "card";
