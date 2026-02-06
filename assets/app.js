@@ -28,7 +28,10 @@ async function loadCategory(category) {
   // 🔧 EDIT THIS PART:
   // Add your .pal filenames per folder
   files.reflectivity = [
-    // "example_reflectivity.pal"
+     "AVL_BroadcastNegatives.pal",
+    "Baron256.pal",
+     "BaronLynx.pal",
+    "BradP_Charlotte.pal",
   ];
 
   files.velocity = [
