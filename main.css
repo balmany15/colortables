@@ -24,6 +24,28 @@ header h1 {
   margin-bottom: 18px;
 }
 
+.logo-heading img {
+  height: 1em;           /* Same height as text */
+  width: auto;           /* Keep aspect ratio */
+  vertical-align: middle; /* Align nicely with text */
+}
+
+.logo-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.logo-heading img {
+  height: 1em;
+  width: auto;
+}
+
+.accent {
+  color: #f6b91a;
+}
+
+
 /* ===== Navigation ===== */
 nav {
   display: flex;
