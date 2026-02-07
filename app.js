@@ -19,22 +19,60 @@ document.addEventListener("DOMContentLoaded", () => {
   // File lists
   const files = {
     reflectivity: [
-      "AVL_BroadcastNegatives.pal",
+      "AVL_Broadcast.pal",
       "Baron256.pal",
-      "RadarScope.pal",
+      "BaronLynx.pal",
+      "Blue_Doppler.pal",
+      "CLT_Broadcast.pal",
+      "CODE_Z.pal",
+      "Custom_Doppler.pal",
+      "Custom_Doppler2.pal",
+      "Custom_Z.pal",
+      "Custom_Z2.pal",
+      "Dark_Z.pal",
+      "DuPageWx.pal",
+      "DuPageWx2.pal",
+      "EAX_Z.pal",
+      "FOXweather.pal",
+      "GMED_Reflectivity.pal",
+      "HD_SuperRes.pal",
+      "Hunter_Refl.pal",
+      "Ivan.pal",
+      "NSSL.pal",
+      "NSSL2.pal",
+      "NSSL3.pal",
+      "NWS_CRH.pal",
+      "NWS_Default.pal",
+      "NWS_Deluth.pal",
+      "NWS_KLOT.pal",
+      "NWS_KLOT2.pal",
+      "NWS_LaCrosse.pal",
+      "NWS_Louisville.pal",
+      "NWS_NSSL-OUN.pal",
+      "NWS_SR.pal",
+      "NWS_Wichita.pal",
+      "PhasedArray.pal",
       "RadarOmega.pal",
-      "NWS_Default.pal"
+      "RadarScope.pal",
+      "SimuAwipsRC.pal",
+      "Solid_Reflectivity.pal",
+      "SolidTV.pal",
+      "WDTD_Z.pal",
+      "WxTap_BR.pal",
+      "WxTap_RadarLabHD.pal"
     ],
     velocity: [
-      "ALPHA-Velo.pal",
-      "UCAR Velo.pal",
-      "Storm Chaser HD Velocity.pal"
+      "ALPHA_Velo.pal",
+      "Chaser_HD.pal",
+      "NWS_Default.pal",
+      "NWS_LOT.pal",
+      "NWS_Miami.pal",
+      "SimuAwips.pal",
+      "UCAR_Velocity.pal",
     ],
     ptype: [
-      "Ptype_IP2.pal",
-      "ra-wsi.pal",
-      "ra-twc.pal",
-      "sn-gray.pal"
+      "FOXWEATHER_PMM.pal",
+      "WSI_PMM.pal"
     ]
   };
 
