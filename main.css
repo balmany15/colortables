@@ -84,7 +84,7 @@ main {
 
 /* ===== Thumbnail ===== */
 .card img {
-  width: 100%;
+  width: auto;
   height: auto;
   object-fit: contain;   /* Ensures all images stay uniform */
   background: #000;
