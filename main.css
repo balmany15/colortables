@@ -78,9 +78,9 @@ main {
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
+
 
 /* ===== Thumbnail ===== */
 .card img {
@@ -95,11 +95,11 @@ main {
 
 /* ===== Table Name ===== */
 .card .name {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: #e5e7eb;
-  flex-grow: 1;
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
 }
 
 /* ===== Download Button ===== */
