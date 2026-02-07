@@ -87,22 +87,23 @@ main {
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  justify-content: center;
 }
+
 
 /* ===== Card ===== */
 .card {
   background: #111827;
   border: 1px solid #1f2937;
-  border-radius: 10px;
-  padding: 18px;
+  border-radius: 12px;
+  padding: 22px;
   text-align: center;
-  transition: 0.2s ease;
   display: flex;
   flex-direction: column;
+  transition: box-shadow 0.2s ease;
 }
+
 
 .card:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
@@ -131,22 +132,24 @@ main {
 
 /* ===== Download Button ===== */
 .download-btn {
-  display: inline-block;
-  background: #2563eb;
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
   font-weight: 600;
-  transition: 0.2s ease;
-  margin-top: 10px;
+  transition: all 0.2s ease;
+  margin-top: auto;
 }
 
 .download-btn:hover {
-  background: #1d4ed8;
+  filter: brightness(1.1);
 }
 
 .download-btn:active {
-  transform: translateY(1px);
+  transform: scale(0.98);
 }
+
