@@ -18,22 +18,24 @@
 
     .howto-container h2 {
       font-size: 36px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .howto-container p {
+    .howto-container p.intro {
       color: #9ca3af;
       margin-bottom: 40px;
       font-size: 18px;
     }
 
+    /* Video */
     .video-wrapper {
       position: relative;
-      padding-top: 56.25%; /* 16:9 */
+      padding-top: 56.25%;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
       background: #000;
+      margin-bottom: 60px;
     }
 
     .video-wrapper video {
@@ -42,50 +44,134 @@
       left: 0;
       width: 100%;
       height: 100%;
+    }
+
+    /* Steps */
+    .steps {
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .steps h3 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .step-item {
+      background: #111827;
+      border: 1px solid #1f2937;
       border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .step-text strong {
+      color: #f6b91a;
     }
   </style>
 </head>
 <body>
 
-  <!-- SAME HEADER AS MAIN PAGE -->
-  <header>
-    <h1 class="logo-heading">
-      <img src="https://www.weatherwise.app/img/logo.svg" alt="WeatherWise logo">
-      <span class="brand">
-        Weather<span class="accent">Wise</span>
-      </span>
-      Color Tables
-    </h1>
-<p>
-  Designed for <a href="https://weatherwise.app" target="_blank">WeatherWise</a> and compatible radar software.
-</p>
-    <br><br>
+<header>
+  <h1 class="logo-heading">
+    <img src="https://www.weatherwise.app/img/logo.svg" alt="WeatherWise logo">
+    <span class="brand">
+      Weather<span class="accent">Wise</span>
+    </span>
+    Color Tables
+  </h1>
+  <p>Powered by Almany Designs</p>
+  <br><br>
 
-    <nav>
-      <a href="../" class="nav-btn">Reflectivity</a>
-      <a href="../" class="nav-btn">Velocity</a>
-      <a href="../" class="nav-btn">Precipitation Type</a>
-      <a href="./" class="nav-btn active">How To Install</a>
-    </nav>
-  </header>
+  <nav>
+    <a href="../" class="nav-btn">Reflectivity</a>
+    <a href="../" class="nav-btn">Velocity</a>
+    <a href="../" class="nav-btn">Precipitation Type</a>
+    <a href="./" class="nav-btn active">How To Install</a>
+  </nav>
+</header>
 
-  <main>
-    <div class="howto-container">
-      <h2>How To Install Color Tables</h2>
-      <p>
-        Follow the steps in the video below to install color tables
-        in WeatherWise and compatible radar software.
-      </p>
+<main>
+  <div class="howto-container">
 
-      <div class="video-wrapper">
-        <video controls>
-          <source src="How-To.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+    <h2>How To Install Color Tables</h2>
+    <p class="intro">
+      Watch the video below or follow the step-by-step instructions.
+    </p>
+
+    <div class="video-wrapper">
+      <video controls>
+        <source src="How-To.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
-  </main>
-  <center><p>Powered by Almany Designs</p></center>
+
+    <div class="steps">
+      <h3>Step-By-Step Instructions (WeatherWise)</h3>
+
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-text">
+          Download your desired color table and <strong>remember where you saved it</strong>.
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-text">
+          In <strong>Radar Mode</strong>, click the <strong>Reflectivity</strong> menu at the bottom left.
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-text">
+          Scroll to the bottom of the menu and select <strong>Customize Color Tables</strong>.
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">4</div>
+        <div class="step-text">
+          Scroll to the bottom again until you see the <strong>Upload Section</strong>.
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">5</div>
+        <div class="step-text">
+          Drop your <strong>.pal</strong> file into the designated upload box or click to browse and upload.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
 </body>
 </html>
