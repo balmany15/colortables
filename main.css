@@ -44,6 +44,11 @@ header h1 {
   color: #f6b91a;
 }
 
+.brand {
+  white-space: nowrap; /* prevents any wrapping or odd spacing */
+}
+
+
 
 /* ===== Navigation ===== */
 nav {
