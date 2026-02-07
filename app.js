@@ -1,28 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const grid = document.getElementById("tables");
-  const navButtons = document.querySelectorAll(".nav-btn[data-category]");
+  const navButtons = document.querySelectorAll(".nav-btn");
 
-  // Default category
   let currentCategory = "reflectivity";
 
-  // Explicit file listing per folder
+  const PLACEHOLDER_IMAGE = "./assets/placeholder.png";
+
+  // Navigation
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      navButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentCategory = btn.dataset.category;
+      loadCategory(currentCategory);
+    });
+  });
+
+  // File lists
   const files = {
     reflectivity: [
-      "AVL_BroadcastNegatives.pal",
+      "AVL_Broadcast.pal",
       "Baron256.pal",
       "BaronLynx.pal",
-      "BradP_Charlotte.pal",
-      "CODE BR.pal",
-      "Custom Refl.pal",
-      "Custom Refl2.pal",
-      "Custom Z2.pal",
-      "Dark Z2.pal",
+      "Blue_Doppler.pal",
+      "CLT_Broadcast.pal",
+      "CODE_Z.pal",
+      "Custom_Doppler.pal",
+      "Custom_Doppler2.pal",
+      "Custom_Z.pal",
+      "Custom_Z2.pal",
+      "Dark_Z.pal",
       "DuPageWx.pal",
-      "DuPageWxWith Negs.pal",
-      "EAX Z.pal",
+      "DuPageWx2.pal",
+      "EAX_Z.pal",
       "FOXweather.pal",
-      "GMEDreflectivity.pal",
+      "GMED_Reflectivity.pal",
       "HD_SuperRes.pal",
       "Hunter_Refl.pal",
       "Ivan.pal",
@@ -43,111 +55,97 @@ document.addEventListener("DOMContentLoaded", () => {
       "RadarOmega.pal",
       "RadarScope.pal",
       "SimuAwipsRC.pal",
-      "SolidBRtrans.pal",
+      "Solid_Reflectivity.pal",
       "SolidTV.pal",
-      "WDTB Z.pal",
-      "WDTB_Bright.pal",
-      "WDTD Z.pal",
+      "WDTD_Z.pal",
       "WxTap_BR.pal",
-      "WxTap_RadarLabHD.pal",
-      "blueness.pal"
+      "WxTap_RadarLabHD.pal"
     ],
     velocity: [
-      "ALPHA-Velo.pal",
-      "BV SimuAwips.pal",
-      "LOT Velo.pal",
-      "NWS-Velo.pal",
-      "Storm Chaser HD Velocity.pal",
-      "UCAR Velo.pal",
-      "miami velo.pal"
+      "ALPHA_Velo.pal",
+      "Chaser_HD.pal",
+      "NWS_Default.pal",
+      "NWS_LOT.pal",
+      "NWS_Miami.pal",
+      "SimuAwips.pal",
+      "UCAR_Velocity.pal",
     ],
     ptype: [
-      "FOXWEATHER-PMM.pal",
-      "Ptype_IP2.pal",
-      "Ptype_ZR3.pal",
-      "WSI-PMM.pal",
-      "WU-IP.pal",
-      "WU-Rain.pal",
-      "WU-Snow.pal",
-      "ra-stormlab.pal",
-      "ra-twc-dark.pal",
-      "ra-twc-solid.pal",
-      "ra-twc.pal",
-      "ra-wsi.pal",
-      "sn-gray.pal",
-      "sn-hunter.pal",
-      "sn-max.pal",
-      "sn-purple.pal",
-      "sn-tracker.pal"
+      "FOXWEATHER_PMM.pal",
+      "WSI_PMM.pal"
     ]
   };
-
-  // Read category from URL (?category=velocity)
-  const params = new URLSearchParams(window.location.search);
-  const categoryFromURL = params.get("category");
-
-  if (categoryFromURL && files[categoryFromURL]) {
-    currentCategory = categoryFromURL;
-  }
-
-  // Set correct active nav button
-  navButtons.forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.category === currentCategory);
-  });
-
-  // Nav button click handling
-  navButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const selected = btn.dataset.category;
-      if (!files[selected]) return;
-
-      currentCategory = selected;
-
-      // Update active styling
-      navButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      // Update URL without page reload
-      window.history.replaceState(null, "", `?category=${selected}`);
-
-      loadCategory(currentCategory);
-    });
-  });
 
   // Initial load
   loadCategory(currentCategory);
 
-  function loadCategory(category) {
+  async function loadCategory(category) {
     grid.innerHTML = "";
 
-    files[category].forEach(file => {
+    for (const file of files[category]) {
       createCard(file, category);
-    });
+    }
   }
 
+  // Create card
   function createCard(filename, category) {
     const card = document.createElement("div");
     card.className = "card";
 
+    // Top row (image + name)
+    const top = document.createElement("div");
+    top.className = "card-top";
+
     const img = document.createElement("img");
-    img.src = `./${category}/${filename.replace(".pal", ".png")}`;
-    img.alt = filename;
+    img.className = "thumbnail";
+    img.alt = formatName(filename);
+
+    const imagePath = `./${category}/${filename.replace(".pal", ".png")}`;
+
+    img.src = imagePath;
+    img.onerror = () => {
+      img.src = PLACEHOLDER_IMAGE;
+    };
 
     const name = document.createElement("div");
-    name.className = "name";
-    name.textContent = filename.replace(".pal", "").replace(/[_-]/g, " ");
+    name.className = "card-name";
+    name.textContent = formatName(filename);
 
+    top.appendChild(img);
+    top.appendChild(name);
+
+    // Download button
     const download = document.createElement("a");
     download.className = "download-btn";
-    download.href = `./${category}/${filename}`;
+    download.href = `./${category}/${encodeURIComponent(filename)}`;
     download.download = filename;
     download.textContent = "Download .PAL";
 
-    card.appendChild(img);
-    card.appendChild(name);
+    card.appendChild(top);
     card.appendChild(download);
 
     grid.appendChild(card);
   }
+
+  // Beautify names
+  function formatName(filename) {
+    return filename
+      .replace(".pal", "")
+      .replace(/[_-]/g, " ")
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  // Read category from URL
+const params = new URLSearchParams(window.location.search);
+const categoryFromURL = params.get("category");
+
+if (categoryFromURL && files[categoryFromURL]) {
+  currentCategory = categoryFromURL;
+}
+
+navButtons.forEach(btn => {
+  btn.classList.toggle("active", btn.dataset.category === currentCategory);
+});
+
 
 });
