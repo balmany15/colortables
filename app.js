@@ -134,4 +134,18 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/[_-]/g, " ")
       .replace(/\b\w/g, c => c.toUpperCase());
   }
+
+  // Read category from URL
+const params = new URLSearchParams(window.location.search);
+const categoryFromURL = params.get("category");
+
+if (categoryFromURL && files[categoryFromURL]) {
+  currentCategory = categoryFromURL;
+}
+
+navButtons.forEach(btn => {
+  btn.classList.toggle("active", btn.dataset.category === currentCategory);
+});
+
+
 });
