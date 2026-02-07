@@ -3,18 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navButtons = document.querySelectorAll(".nav-btn");
 
   let currentCategory = "reflectivity";
-
   const PLACEHOLDER_IMAGE = "./assets/placeholder.png";
-
-  // Navigation
-  navButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      navButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentCategory = btn.dataset.category;
-      loadCategory(currentCategory);
-    });
-  });
 
   // File lists
   const files = {
@@ -67,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_LOT.pal",
       "NWS_Miami.pal",
       "SimuAwips.pal",
-      "UCAR_Velocity.pal",
+      "UCAR_Velocity.pal"
     ],
     ptype: [
       "FOXWEATHER_PMM.pal",
@@ -75,10 +64,40 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   };
 
-  // Initial load
+  // 🔥 READ URL FIRST
+  const params = new URLSearchParams(window.location.search);
+  const categoryFromURL = params.get("category");
+
+  if (categoryFromURL && files[categoryFromURL]) {
+    currentCategory = categoryFromURL;
+  }
+
+  // Navigation
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (!btn.dataset.category) return;
+
+      navButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      currentCategory = btn.dataset.category;
+
+      // Update URL without reload
+      window.history.replaceState(null, "", `?category=${currentCategory}`);
+
+      loadCategory(currentCategory);
+    });
+  });
+
+  // Set correct active tab
+  navButtons.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.category === currentCategory);
+  });
+
+  // Initial load (NOW uses correct category)
   loadCategory(currentCategory);
 
-  async function loadCategory(category) {
+  function loadCategory(category) {
     grid.innerHTML = "";
 
     for (const file of files[category]) {
@@ -86,12 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Create card
   function createCard(filename, category) {
     const card = document.createElement("div");
     card.className = "card";
 
-    // Top row (image + name)
     const top = document.createElement("div");
     top.className = "card-top";
 
@@ -100,8 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
     img.alt = formatName(filename);
 
     const imagePath = `./${category}/${filename.replace(".pal", ".png")}`;
-
     img.src = imagePath;
+
     img.onerror = () => {
       img.src = PLACEHOLDER_IMAGE;
     };
@@ -113,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
     top.appendChild(img);
     top.appendChild(name);
 
-    // Download button
     const download = document.createElement("a");
     download.className = "download-btn";
     download.href = `./${category}/${encodeURIComponent(filename)}`;
@@ -126,25 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.appendChild(card);
   }
 
-  // Beautify names
   function formatName(filename) {
     return filename
       .replace(".pal", "")
       .replace(/[_-]/g, " ")
       .replace(/\b\w/g, c => c.toUpperCase());
   }
-
-  // Read category from URL
-const params = new URLSearchParams(window.location.search);
-const categoryFromURL = params.get("category");
-
-if (categoryFromURL && files[categoryFromURL]) {
-  currentCategory = categoryFromURL;
-}
-
-navButtons.forEach(btn => {
-  btn.classList.toggle("active", btn.dataset.category === currentCategory);
-});
-
 
 });
