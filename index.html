@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Color Tables by Almany Designs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="stylesheet" href="assets/main.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Color Table</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <!-- ===== Header ===== -->
+    <header>
+        <h1>Radar Color Table</h1>
+        <nav>
+            <a href="#tables">Tables</a>
+            <a href="#download">Download</a>
+        </nav>
+    </header>
 
-  <header>
-    <h1>Color Tables <span>| by Almany Designs</span></h1>
+    <!-- ===== Download Section ===== -->
+    <section id="download" class="download-section">
+        <button class="download-button" onclick="window.location.href='file.pal'">
+            Download .PAL
+        </button>
+    </section>
 
-    <nav>
-      <button data-category="reflectivity" class="nav-btn active">Reflectivity</button>
-      <button data-category="velocity" class="nav-btn">Velocity</button>
-      <button data-category="ptype" class="nav-btn">P-Type</button>
-    </nav>
-  </header>
-
-  <main>
-    <section id="tables" class="grid"></section>
-  </main>
-
-  <footer>
-    <p>© Almany Designs</p>
-  </footer>
-
-  <script src="assets/app.js"></script>
+    <!-- ===== Cards Section ===== -->
+    <section id="tables" class="cards-container">
+        <div class="card">
+            <img src="images/table1.png" alt="Table 1">
+            <h3>Table 1</h3>
+            <p>Description for Table 1.</p>
+        </div>
+        <div class="card">
+            <img src="images/table2.png" alt="AVL Broadcast Negatives">
+            <h3>AVL Broadcast Negatives</h3>
+            <p>Description for AVL Broadcast Negatives.</p>
+        </div>
+        <div class="card">
+            <img src="images/table3.png" alt="Table 3">
+            <h3>Table 3</h3>
+            <p>Description for Table 3.</p>
+        </div>
+        <div class="card">
+            <img src="images/table4.png" alt="Table 4">
+            <h3>Table 4</h3>
+            <p>Description for Table 4.</p>
+        </div>
+    </section>
 </body>
 </html>

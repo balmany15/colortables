@@ -6,19 +6,18 @@
     font-family: Arial, sans-serif;
 }
 
-/* ===== Body ===== */
+/* ===== Dark Mode Body ===== */
 body {
-    background-color: #f2f2f2;
-    color: #333;
+    background-color: #121212;
+    color: #eeeeee;
     line-height: 1.5;
 }
 
-/* ===== Header / Title ===== */
+/* ===== Header ===== */
 header {
     text-align: center;
     padding: 20px 0;
-    background-color: #007BFF;
-    color: white;
+    background-color: #1e1e1e;
 }
 
 header h1 {
@@ -27,7 +26,7 @@ header h1 {
 }
 
 header nav a {
-    color: white;
+    color: #ffffff;
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
@@ -44,59 +43,65 @@ header nav a:hover {
     margin: 25px 0;
 }
 
-.download-link {
-    display: inline-block;
-    background-color: #28a745; /* green button */
-    color: white;
-    padding: 12px 24px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
+.download-button {
+    background-color: #007BFF;
+    color: #ffffff;
+    padding: 14px 28px;
     font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     transition: background 0.3s, transform 0.2s;
 }
 
-.download-link:hover {
-    background-color: #1e7e34;
+.download-button:hover {
+    background-color: #0056b3;
     transform: scale(1.05);
 }
 
 /* ===== Cards Container ===== */
 .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: flex;
+    flex-wrap: wrap; /* keeps cards in rows */
+    justify-content: center;
     gap: 20px;
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 /* ===== Individual Card ===== */
 .card {
-    background-color: white;
+    background-color: #1e1e1e;
     border-radius: 10px;
     padding: 15px;
+    width: 220px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
 }
 
 .card img {
-    max-width: 100%;
-    max-height: 150px; /* fixes oversized images */
-    object-fit: cover;
-    border-radius: 6px;
+    width: 100%;
+    max-height: 140px; /* ensures AVL image isn't oversized */
+    object-fit: contain; /* preserves aspect ratio without cropping */
     margin-bottom: 10px;
+    border-radius: 6px;
 }
 
 .card h3 {
     font-size: 18px;
     margin-bottom: 5px;
+    color: #ffffff;
 }
 
 .card p {
     font-size: 14px;
-    color: #555;
+    color: #cccccc;
 }
