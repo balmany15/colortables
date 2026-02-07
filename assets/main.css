@@ -1,7 +1,52 @@
-/* ===== Download .PAL Button Styling ===== */
+/* ===== General Reset ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== Body ===== */
+body {
+    background-color: #f2f2f2;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* ===== Header / Title ===== */
+header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #007BFF;
+    color: white;
+}
+
+header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+header nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #FFD700;
+}
+
+/* ===== Download Button ===== */
+.download-section {
+    text-align: center;
+    margin: 25px 0;
+}
+
 .download-link {
     display: inline-block;
-    background-color: #007BFF; /* Button color */
+    background-color: #28a745; /* green button */
     color: white;
     padding: 12px 24px;
     text-decoration: none;
@@ -9,42 +54,46 @@
     font-weight: bold;
     font-size: 16px;
     transition: background 0.3s, transform 0.2s;
-    text-align: center;
-    margin: 10px 0;
 }
 
 .download-link:hover {
-    background-color: #0056b3;
+    background-color: #1e7e34;
     transform: scale(1.05);
 }
 
-/* ===== Card & Image Consistency ===== */
+/* ===== Cards Container ===== */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== Individual Card ===== */
 .card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    background-color: #f9f9f9; /* optional: card background */
-    border-radius: 10px;
-    padding: 15px;
-    width: 250px;  /* or adjust to your layout */
-    margin: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
 }
 
 .card img {
     max-width: 100%;
-    max-height: 150px; /* limits tall images like AVL Broadcast Negatives */
-    object-fit: cover;  /* crops nicely if needed */
-    margin-bottom: 10px;
+    max-height: 150px; /* fixes oversized images */
+    object-fit: cover;
     border-radius: 6px;
+    margin-bottom: 10px;
 }
 
-/* Optional: ensure all card titles are consistent */
 .card h3 {
     font-size: 18px;
-    margin: 5px 0;
+    margin-bottom: 5px;
 }
 
 .card p {
