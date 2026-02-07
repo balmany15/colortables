@@ -58,6 +58,9 @@ a:hover {
   text-decoration: underline;
 }
 
+header p {
+  margin-bottom: 20px;
+}
 
 
 /* ===== Navigation ===== */
@@ -125,6 +128,10 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 28px;
+}
+
+.steps {
+  margin-bottom: 80px;
 }
 
 /* ===== Card ===== */
