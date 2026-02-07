@@ -126,22 +126,24 @@ main {
 
 /* ===== Download Button ===== */
 .download-btn {
-  display: inline-block;
-  background: #2563eb;
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
   font-weight: 600;
-  transition: 0.2s ease;
-  margin-top: 10px;
+  transition: all 0.2s ease;
+  margin-top: auto;
 }
 
 .download-btn:hover {
-  background: #1d4ed8;
+  filter: brightness(1.1);
 }
 
 .download-btn:active {
-  transform: translateY(1px);
+  transform: scale(0.98);
 }
+
