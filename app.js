@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "Custom_Doppler.pal",
       "Custom_Doppler2.pal",
       "Custom_Z.pal",
-      "Custom_Z2.pal",
       "Dark_Z.pal",
       "DuPageWx.pal",
       "DuPageWx2.pal",
