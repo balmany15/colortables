@@ -1,107 +1,124 @@
-/* ===== General Reset ===== */
+/* ===== Reset ===== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-/* ===== Dark Mode Body ===== */
 body {
-    background-color: #121212;
-    color: #eeeeee;
-    line-height: 1.5;
+  margin: 0;
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* ===== Header ===== */
 header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #1e1e1e;
+  text-align: center;
+  padding: 30px 20px 20px;
+  border-bottom: 1px solid #1f2937;
 }
 
 header h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+  margin: 0 0 18px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
-header nav a {
-    color: #ffffff;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
+/* ===== Navigation ===== */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-header nav a:hover {
-    color: #FFD700;
+.nav-btn {
+  background: #1f2937;
+  color: #cbd5e1;
+  border: 1px solid #2d3748;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
 }
 
-/* ===== Download Button ===== */
-.download-section {
-    text-align: center;
-    margin: 25px 0;
+.nav-btn:hover {
+  background: #374151;
 }
 
-.download-button {
-    background-color: #007BFF;
-    color: #ffffff;
-    padding: 14px 28px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
+.nav-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
 }
 
-.download-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+/* ===== Layout ===== */
+main {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-/* ===== Cards Container ===== */
-.cards-container {
-    display: flex;
-    flex-wrap: wrap; /* keeps cards in rows */
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
 }
 
-/* ===== Individual Card ===== */
+/* ===== Card ===== */
 .card {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    padding: 15px;
-    width: 220px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  transition: 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
 }
 
+/* ===== Thumbnail ===== */
 .card img {
-    width: 100%;
-    max-height: 140px; /* ensures AVL image isn't oversized */
-    object-fit: contain; /* preserves aspect ratio without cropping */
-    margin-bottom: 10px;
-    border-radius: 6px;
+  width: 100%;
+  height: 120px;
+  object-fit: contain;   /* Ensures all images stay uniform */
+  background: #000;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  border: 1px solid #1f2937;
 }
 
-.card h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-    color: #ffffff;
+/* ===== Table Name ===== */
+.card .name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #e5e7eb;
+  flex-grow: 1;
 }
 
-.card p {
-    font-size: 14px;
-    color: #cccccc;
+/* ===== Download Button ===== */
+.download-btn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.download-btn:hover {
+  background: #1d4ed8;
+}
+
+.download-btn:active {
+  transform: translateY(1px);
 }

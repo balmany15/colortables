@@ -1,50 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar Color Table</title>
-    <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8">
+  <title>Almany Designs | Color Tables</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <!-- ===== Header ===== -->
-    <header>
-        <h1>Radar Color Table</h1>
-        <nav>
-            <a href="#tables">Tables</a>
-            <a href="#download">Download</a>
-        </nav>
-    </header>
 
-    <!-- ===== Download Section ===== -->
-    <section id="download" class="download-section">
-        <button class="download-button" onclick="window.location.href='file.pal'">
-            Download .PAL
-        </button>
-    </section>
+  <header>
+    <h1>Almany Designs | Color Tables</h1>
 
-    <!-- ===== Cards Section ===== -->
-    <section id="tables" class="cards-container">
-        <div class="card">
-            <img src="images/table1.png" alt="Table 1">
-            <h3>Table 1</h3>
-            <p>Description for Table 1.</p>
-        </div>
-        <div class="card">
-            <img src="images/table2.png" alt="AVL Broadcast Negatives">
-            <h3>AVL Broadcast Negatives</h3>
-            <p>Description for AVL Broadcast Negatives.</p>
-        </div>
-        <div class="card">
-            <img src="images/table3.png" alt="Table 3">
-            <h3>Table 3</h3>
-            <p>Description for Table 3.</p>
-        </div>
-        <div class="card">
-            <img src="images/table4.png" alt="Table 4">
-            <h3>Table 4</h3>
-            <p>Description for Table 4.</p>
-        </div>
-    </section>
+    <nav>
+      <button class="nav-btn active" data-category="reflectivity">Reflectivity</button>
+      <button class="nav-btn" data-category="velocity">Velocity</button>
+      <button class="nav-btn" data-category="ptype">P-Type</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="tables" class="grid"></div>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
