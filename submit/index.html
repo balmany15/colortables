@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit a Color Table | WxWise Color Tables</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Load main stylesheet from parent folder -->
+  <link rel="stylesheet" href="../main.css">
+
+  <style>
+    .submit-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .submit-container h2 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .submit-container p.intro {
+      color: #9ca3af;
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .requirements {
+      text-align: left;
+      margin: 40px auto;
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .requirements h3 {
+      margin-top: 0;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .requirements ul {
+      padding-left: 20px;
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .requirements li {
+      margin-bottom: 12px;
+    }
+
+    .requirements strong {
+      color: #f6b91a;
+    }
+
+    .submit-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .note {
+      color: #9ca3af;
+      font-size: 15px;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 class="logo-heading">
+    <img src="https://www.weatherwise.app/img/logo.svg" alt="WeatherWise logo">
+    <span class="brand">
+      Weather<span class="accent">Wise</span>
+    </span>
+    Color Tables
+  </h1>
+<p>
+  Designed for <a href="https://weatherwise.app" target="_blank">WeatherWise</a> and compatible radar software.
+</p>
+  <br><br>
+
+  <nav>
+    <a href="../" class="nav-btn">Reflectivity</a>
+    <a href="../" class="nav-btn">Velocity</a>
+    <a href="../" class="nav-btn">Precipitation Type</a>
+    <a href="../how-to/" class="nav-btn">How To Install</a>
+    <a href="./" class="nav-btn active">Submit</a>
+  </nav>
+</header>
+
+<main>
+  <div class="submit-container">
+
+    <h2>Submit a Color Table</h2>
+    <p class="intro">
+      Have a color table you’d like to share with the WeatherWise community?
+      Submit it for review below.
+    </p>
+
+    <div class="requirements">
+      <h3>Submission Guidelines</h3>
+      <ul>
+        <li>Must include the original <strong>.pal</strong> file.</li>
+        <li>Must include a <strong>screenshot preview</strong> of the color table in use.</li>
+        <li>Must be your <strong>original work</strong> or used with permission.</li>
+        <li>Must function properly in <strong>WeatherWise</strong>.</li>
+        <li>Clearly indicate which category it belongs to (Reflectivity, Velocity, or P-Type).</li>
+      </ul>
+    </div>
+
+    <!-- Replace the href below with your Google Form link -->
+    <a href="https://forms.google.com/YOUR_FORM_LINK_HERE" target="_blank" class="submit-btn">
+      Submit Color Table
+    </a>
+
+    <p class="note">
+      All submissions are reviewed before being added.  
+      Not all submissions will be approved.
+    </p>
+
+  </div>
+</main>
+  <p>Powered by Almany Designs</p>
+</body>
+</html>
