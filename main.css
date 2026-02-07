@@ -99,6 +99,11 @@ nav {
   background: #374151;
 }
 
+.nav-btn {
+  text-decoration: none;
+}
+
+
 
 /* ===== Layout ===== */
 main {
