@@ -86,7 +86,7 @@ main {
 .card img {
   width: 100%;
   height: 120px;
-  object-fit: contain;   /* Ensures all images stay uniform */
+  object-fit: cover;   /* Ensures all images stay uniform */
   background: #000;
   border-radius: 6px;
   margin-bottom: 14px;
