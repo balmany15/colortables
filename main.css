@@ -44,6 +44,15 @@ header h1 {
   color: #f6b91a;
 }
 
+a {
+  color: #f6b91a;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
 
 /* ===== Navigation ===== */
 nav {
@@ -73,6 +82,23 @@ nav {
   border-color: #2563eb;
   color: white;
 }
+
+.nav-link {
+  background: #1f2937;
+  color: #cbd5e1;
+  border: 1px solid #2d3748;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 24px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  background: #374151;
+}
+
 
 /* ===== Layout ===== */
 main {
