@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "UCAR_Velocity.pal"
     ],
     ptype: [
+      "BARON.pal",
       "FOXWEATHER.pal",
       "The_Weather_Channel.pal",
       "Weather_Underground.pal",
