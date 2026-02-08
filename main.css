@@ -163,10 +163,10 @@ main {
 }
 
 /* ===== Table Name ===== */
-.card .name {
-  font-size: 22px;
+.card-name {
+  font-size: 26px;
   font-weight: 700;
-  margin: 6px 0 18px;
+  margin: 10px 0 20px;
   letter-spacing: 0.4px;
 }
 
@@ -177,13 +177,14 @@ main {
   background: #2563eb;
   color: white;
   text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 16px;   /* 👈 Explicit size */
   font-weight: 600;
   transition: 0.2s ease;
-  margin-top: 10px;
+  margin-top: 0px;
 }
+
 
 .download-btn:hover {
   background: #1d4ed8;
