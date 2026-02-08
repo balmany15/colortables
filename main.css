@@ -35,7 +35,6 @@ header h1 {
 .logo-heading {
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
 }
 
 .logo-heading {
@@ -45,8 +44,12 @@ header h1 {
 }
 
 .logo-heading img {
-  height: 1em;
-  width: auto;
+  height: 1.5em;
+  margin-right: 3px;   /* controls space between logo and WeatherWise */
+}
+
+.logo-heading .brand {
+  margin-right: 12px;  /* controls space between WeatherWise and Color Tables */
 }
 
 .accent {
