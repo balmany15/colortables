@@ -13,7 +13,8 @@ color: 70 123 0 123 RAIN
 
 # Snow
 color: 0 60 239 249 SNOW
-color: 50 5 0 84 SNOW
+color: 45 0 4 177 SNOW
+color: 70 92 0 245 SNOW
 
 # Sleet
 Color: 0 254 199 221 SLEET
