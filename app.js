@@ -59,8 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "UCAR_Velocity.pal"
     ],
     ptype: [
-      "FOXWEATHER_PMM.pal",
-      "WSI_PMM.pal"
+      "FOXWEATHER.pal",
+      "The_Weather_Channel.pal",
+      "WSI.pal"
     ]
   };
 
