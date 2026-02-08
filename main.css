@@ -5,7 +5,10 @@
 
 body {
   margin: 0;
-  background: #0d1117;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(10 11 20), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(48 53 96), transparent 40%),
+    #0b1220;
   color: #e6edf3;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -87,8 +90,8 @@ nav {
 }
 
 .nav-btn.active {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: #1d4ed8;
+  border-color: #1d4ed8;
   color: white;
 }
 
@@ -128,6 +131,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 28px;
+    overflow: visible;
 }
 
 .steps {
@@ -136,19 +140,31 @@ main {
 
 /* ===== Card ===== */
 .card {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 12px;
+  background: rgba(17, 24, 39, 0.85);
+  border-radius: 16px;
+  overflow: hidden;
   padding: 22px;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.2s ease;
+  text-align: center;
+  will-change: transform;
+    border: 1px solid #1d4ed8;   /* 👈 Your new border */
+
+ /* transition: transform 0.25s ease, box-shadow 0.25s ease;*/
 }
 
+
 .card:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+ /* transform: scale(1.04);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);*/
 }
+
+@media (hover: hover) {
+  .card:hover {
+    /*transform: scale(1.04);*/
+  }
+}
+
 
 
 /* ===== Thumbnail ===== */
@@ -158,6 +174,7 @@ main {
   object-fit: contain;   /* Ensures all images stay uniform */
   background: #000;
   border-radius: 6px;
+  margin-bottom: 0px;
   border: 1px solid #1f2937;
 }
 
@@ -173,7 +190,7 @@ main {
 /* ===== Download Button ===== */
 .download-btn {
   display: inline-block;
-  background: #2563eb;
+  background: linear-gradient(135deg, #38bdf8, #1d4ed8);
   color: white;
   text-decoration: none;
   padding: 12px 18px;
@@ -186,7 +203,8 @@ main {
 
 
 .download-btn:hover {
-  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(37,99,235,0.6);
 }
 
 .download-btn:active {
