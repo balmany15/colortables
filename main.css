@@ -158,7 +158,6 @@ main {
   object-fit: contain;   /* Ensures all images stay uniform */
   background: #000;
   border-radius: 6px;
-  margin-bottom: 10px;
   border: 1px solid #1f2937;
 }
 
