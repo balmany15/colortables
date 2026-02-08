@@ -18,6 +18,7 @@ header {
   text-align: center;
   padding: 30px 20px 20px;
   border-bottom: 1px solid #1f2937;
+    position: relative;
 }
 
 header h1 {
@@ -233,4 +234,52 @@ footer .disclaimer {
   margin-left: auto;
   margin-right: auto;
   line-height: 1.5;
+}
+
+/* ===== LIVE Indicator ===== */
+.live-indicator {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;   /* 👈 removes underline */
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.live-indicator:hover {
+  opacity: 1;
+}
+
+
+.live-indicator .dot {
+  width: 8px;
+  height: 8px;
+  background: #38bdf8;
+  border-radius: 50%;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Pulsing animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(56,189,248,0.6);
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0.6;
+    box-shadow: 0 0 0 8px rgba(56,189,248,0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
