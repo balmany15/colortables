@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ptype: [
       "FOXWEATHER.pal",
       "The_Weather_Channel.pal",
+      "Weather_Underground.pal",
       "WSI.pal"
     ]
   };
