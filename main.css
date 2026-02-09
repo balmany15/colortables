@@ -335,11 +335,14 @@ footer .disclaimer {
 /* Hide LIVE RADAR by default (mobile first) */
 .live-radar {
   display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
-/* Show on tablets and desktop */
 @media (min-width: 768px) {
   .live-radar {
-    display: block; /* or inline-block depending on layout */
+    display: block;
   }
 }
+
