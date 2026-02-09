@@ -1,0 +1,38 @@
+Product: PMM
+Units: dBZ
+
+# Rain
+color: -5  0 53 0 RAIN
+color: 0   3 81 3 RAIN
+color: 5   3 187 3 RAIN
+color: 10  3 208 3 RAIN
+color: 15  0 219 0 RAIN
+color: 20  0 183 0 RAIN
+color: 25  0 147 0 RAIN
+color: 30  0 111 0 RAIN
+color: 35  0 75 0 RAIN
+color: 40 255 226 0 255 128 0 RAIN
+color: 50 255 0 0 113 0 0 RAIN
+color: 60 255 255 255 255 146 255 RAIN
+color: 65 255 117 255 225 11 227 RAIN
+color: 70 178 0 255 99 0 214 RAIN
+color: 75 5 236 240 1 32 32 RAIN
+color: 85 1 32 32 RAIN
+color: 95 1 32 32 RAIN
+
+
+# Snow
+color: -15     0    75   146 SNOW
+color:  0      0    75   176 SNOW
+color: 10    134   180   224 SNOW
+color: 20    180   220   250 SNOW
+color: 30    255   255   255 SNOW
+color: 60     43    44    46 SNOW
+
+# Sleet
+Color: -10 203  5  130 SLEET
+Color: 50 254 210 SLEET
+
+# Freezing Rain
+Color: -10   144   0   0 FRZR
+Color: 50 255 172 172 FRZR

@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_CRH.pal",
       "NWS_Default.pal",
       "NWS_Deluth.pal",
-      "NWS_KLOT.pal",
-      "NWS_KLOT2.pal",
+      "NWS_LOT.pal",
+      "NWS_LOT2.pal",
       "NWS_LaCrosse.pal",
       "NWS_Louisville.pal",
       "NWS_NSSL-OUN.pal",
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "PhasedArray.pal",
       "RadarOmega.pal",
       "RadarScope.pal",
+      "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
       "Solid_Reflectivity.pal",
       "SolidTV.pal",
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "BARON.pal",
       "FOXWEATHER.pal",
       "The_Weather_Channel.pal",
+      "Ritter_Reflectivity.pal",
       "Weather_Underground.pal",
       "WSI.pal"
     ]
@@ -69,7 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Optional credits per file
 const credits = {
+  
+  "ALPHA_Velo.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
   "AVL_Broadcast.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "BARON.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -82,6 +93,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "Blue_Doppler.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Chaser_HD.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -118,6 +133,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "EAX_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "FOXWEATHER.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -165,11 +184,11 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NWS_KLOT.pal": {
+    "NWS_LOT.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NWS_KLOT2.pal": {
+    "NWS_LOT2.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -178,6 +197,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_Louisville.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_Miami.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -205,6 +228,14 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
+      "Ritter_Reflectivity.pal": {
+    name: "@MetMattRitter",
+    url: "https://x.com/MetMattRitter"
+  },
+    "SimuAwips.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
     "SimuAwipsRC.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
@@ -217,7 +248,23 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
+    "The_Weather_Channel.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "UCAR_Velocity.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
     "WDTD_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Weather_Underground.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "WSI.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
