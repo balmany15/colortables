@@ -331,14 +331,9 @@ footer .disclaimer {
   border-radius: 6px;
 }
 
-/* ===== LIVE RADAR (Desktop Only) ===== */
-
-.live-indicator {
-  display: none !important;
-}
-
-@media screen and (min-width: 768px) {
+/* Hide LIVE indicator on phones */
+@media screen and (max-width: 767px) {
   .live-indicator {
-    display: inline-block !important;
+    display: none !important;
   }
 }
