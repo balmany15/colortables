@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WeatherWise Color Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../main.css">
+
+<style>
+.lab-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.preview-container {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+#preview {
+  width: 100%;
+  height: 60px;
+  border-radius: 6px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.controls input {
+  padding: 8px;
+  background: #0d1117;
+  border: 1px solid #1f2937;
+  color: white;
+  border-radius: 6px;
+  width: 120px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+}
+
+.row input[type="number"] {
+  width: 80px;
+}
+
+.row input[type="color"] {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.row input[type="text"] {
+  width: 90px;
+}
+
+.row button {
+  padding: 6px 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.row button.remove {
+  background: #dc2626;
+}
+
+.export-section {
+  margin-top: 30px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="logo-heading">
+    <span class="brand">
+      Weather<span class="accent">Wise</span>
+    </span>
+    Color Lab
+  </h1>
+</header>
+
+<main class="lab-container">
+
+<div class="preview-container">
+  <canvas id="preview"></canvas>
+</div>
+
+<div class="controls">
+  <input type="text" id="product" placeholder="Product (BR)">
+  <input type="text" id="units" placeholder="Units (dBZ)">
+  <input type="number" id="step" placeholder="Step">
+  <button onclick="addRow()">Add Row</button>
+</div>
+
+<div id="rows"></div>
+
+<div class="export-section">
+  <input type="text" id="filename" placeholder="File Name">
+  <button onclick="downloadPal()">Download .PAL</button>
+</div>
+
+</main>
+
+<script>
+let rows = [];
+
+function addRow() {
+  rows.push({
+    value: 0,
+    type: "solid",
+    start: { r: 255, g: 255, b: 255 },
+    end: { r: 255, g: 255, b: 255 }
+  });
+  renderRows();
+  renderPreview();
+}
+
+function renderRows() {
+  const container = document.getElementById("rows");
+  container.innerHTML = "";
+
+  rows.forEach((row, index) => {
+    const div = document.createElement("div");
+    div.className = "row";
+
+    const valueInput = document.createElement("input");
+    valueInput.type = "number";
+    valueInput.value = row.value;
+    valueInput.oninput = () => {
+      row.value = parseFloat(valueInput.value);
+      renderPreview();
+    };
+
+    const startColor = document.createElement("input");
+    startColor.type = "color";
+    startColor.value = rgbToHex(row.start);
+    startColor.oninput = () => {
+      row.start = hexToRgb(startColor.value);
+      if (row.type === "solid") row.end = {...row.start};
+      renderPreview();
+    };
+
+    const endColor = document.createElement("input");
+    endColor.type = "color";
+    endColor.value = rgbToHex(row.end);
+    endColor.oninput = () => {
+      row.end = hexToRgb(endColor.value);
+      renderPreview();
+    };
+
+    const toggle = document.createElement("button");
+    toggle.textContent = row.type === "solid" ? "Solid" : "Gradient";
+    toggle.onclick = () => {
+      row.type = row.type === "solid" ? "gradient" : "solid";
+      toggle.textContent = row.type === "solid" ? "Solid" : "Gradient";
+      renderPreview();
+    };
+
+    const remove = document.createElement("button");
+    remove.textContent = "X";
+    remove.className = "remove";
+    remove.onclick = () => {
+      rows.splice(index, 1);
+      renderRows();
+      renderPreview();
+    };
+
+    div.append(valueInput, startColor, endColor, toggle, remove);
+    container.appendChild(div);
+  });
+}
+
+function renderPreview() {
+  const canvas = document.getElementById("preview");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (!rows.length) return;
+
+  const sorted = [...rows].sort((a, b) => a.value - b.value);
+
+  const min = sorted[0].value;
+  const max = sorted[sorted.length - 1].value;
+  if (min === max) return;
+
+  for (let i = 0; i < sorted.length; i++) {
+    const row = sorted[i];
+    const next = sorted[i + 1];
+
+    const startX = ((row.value - min) / (max - min)) * canvas.width;
+    const endX = next
+      ? ((next.value - min) / (max - min)) * canvas.width
+      : canvas.width;
+
+    const width = endX - startX;
+
+    if (row.type === "solid") {
+      ctx.fillStyle = `rgb(${row.start.r},${row.start.g},${row.start.b})`;
+      ctx.fillRect(startX, 0, width, canvas.height);
+    } else {
+      const grad = ctx.createLinearGradient(startX, 0, endX, 0);
+      grad.addColorStop(0, `rgb(${row.start.r},${row.start.g},${row.start.b})`);
+      grad.addColorStop(1, `rgb(${row.end.r},${row.end.g},${row.end.b})`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(startX, 0, width, canvas.height);
+    }
+  }
+}
+
+function downloadPal() {
+  if (!rows.length) return;
+
+  const product = document.getElementById("product").value || "BR";
+  const units = document.getElementById("units").value || "dBZ";
+  const step = document.getElementById("step").value || 5;
+  const filename = document.getElementById("filename").value || "colortable";
+
+  let content = `product: ${product}\nunits: ${units}\nstep: ${step}\n\n`;
+
+  const sorted = [...rows].sort((a,b)=>a.value-b.value);
+
+  sorted.forEach(row => {
+    if (row.type === "solid") {
+      content += `solidcolor: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b}\n`;
+    } else {
+      content += `color: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b} ${row.end.r} ${row.end.g} ${row.end.b}\n`;
+    }
+  });
+
+  const blob = new Blob([content], {type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename + ".pal";
+  a.click();
+}
+
+function rgbToHex({r,g,b}) {
+  return "#" + [r,g,b].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+
+function hexToRgb(hex) {
+  const bigint = parseInt(hex.slice(1), 16);
+  return {
+    r: (bigint >> 16) & 255,
+    g: (bigint >> 8) & 255,
+    b: bigint & 255
+  };
+}
+
+addRow();
+</script>
+
+</body>
+</html>
