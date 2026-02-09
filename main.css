@@ -285,51 +285,7 @@ footer .disclaimer {
     opacity: 1;
   }
 }
-/* Share button */
-.share-toggle {
-  background: rgba(56,189,248,0.15);
-  border: 1px solid rgba(56,189,248,0.5);
-  color: #38bdf8;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
 
-.share-toggle:hover {
-  background: rgba(56,189,248,0.25);
-}
-
-/* Dropdown menu */
-.share-menu {
-  display: none;
-  background: rgba(17,24,39,0.95);
-  border: 1px solid rgba(56,189,248,0.4);
-  border-radius: 10px;
-  padding: 10px;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 140px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-}
-
-.share-menu a,
-.share-menu button {
-  background: none;
-  border: none;
-  color: #e6edf3;
-  text-align: left;
-  padding: 6px 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.share-menu a:hover,
-.share-menu button:hover {
-  background: rgba(56,189,248,0.15);
-  border-radius: 6px;
-}
 
 /* Hide LIVE indicator on phones */
 @media screen and (max-width: 767px) {
@@ -341,17 +297,21 @@ footer .disclaimer {
 
 /* ===== Card Credit ===== */
 .card-credit {
-  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
   color: #94a3b8;
+  margin-top: 4px;
   margin-bottom: 14px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
 
 .card-credit a {
-  color: #38bdf8;
+  color: #94a3b8;
   text-decoration: none;
-  font-weight: 500;
 }
 
 .card-credit a:hover {
-  text-decoration: underline;
+  color: #38bdf8;
 }

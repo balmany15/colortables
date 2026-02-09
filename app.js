@@ -358,7 +358,7 @@ if (credits[filename]) {
   creditLink.rel = "noopener noreferrer";
   creditLink.textContent = credits[filename].name;
 
-  credit.appendChild(document.createTextNode("by "));
+  /*credit.appendChild(document.createTextNode(" "));*/
   credit.appendChild(creditLink);
 
   top.appendChild(credit);
