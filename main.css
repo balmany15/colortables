@@ -333,12 +333,12 @@ footer .disclaimer {
 
 /* ===== LIVE RADAR (Desktop Only) ===== */
 
-.live-radar {
+.live-indicator {
   display: none !important;
 }
 
 @media screen and (min-width: 768px) {
-  .live-radar {
+  .live-indicator {
     display: inline-block !important;
   }
 }
