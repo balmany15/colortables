@@ -123,6 +123,20 @@ nav {
   font-size: clamp(14px, 3vw, 20px);
 }
 
+header {
+  position: relative;
+}
+
+.header-actions {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
 
 /* ===== Layout ===== */
 main {
@@ -157,17 +171,6 @@ main {
  /* transition: transform 0.25s ease, box-shadow 0.25s ease;*/
 }
 
-
-.card:hover {
- /* transform: scale(1.04);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);*/
-}
-
-@media (hover: hover) {
-  .card:hover {
-    /*transform: scale(1.04);*/
-  }
-}
 
 
 
@@ -281,5 +284,62 @@ footer .disclaimer {
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+/* Share button */
+.share-toggle {
+  background: rgba(56,189,248,0.15);
+  border: 1px solid rgba(56,189,248,0.5);
+  color: #38bdf8;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.share-toggle:hover {
+  background: rgba(56,189,248,0.25);
+}
+
+/* Dropdown menu */
+.share-menu {
+  display: none;
+  background: rgba(17,24,39,0.95);
+  border: 1px solid rgba(56,189,248,0.4);
+  border-radius: 10px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+.share-menu a,
+.share-menu button {
+  background: none;
+  border: none;
+  color: #e6edf3;
+  text-align: left;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.share-menu a:hover,
+.share-menu button:hover {
+  background: rgba(56,189,248,0.15);
+  border-radius: 6px;
+}
+
+/* Hide LIVE RADAR by default (mobile first) */
+.live-radar {
+  display: none;
+}
+
+/* Show on tablets and desktop */
+@media (min-width: 768px) {
+  .live-radar {
+    display: block; /* or inline-block depending on layout */
   }
 }
