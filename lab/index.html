@@ -8,14 +8,12 @@
 
 <style>
 
-/* ===== Lab Layout ===== */
 .lab-container {
   max-width: 1100px;
   margin: 60px auto;
   padding: 0 20px;
 }
 
-/* ===== Preview ===== */
 .preview-wrapper {
   background: #111827;
   border: 1px solid #1f2937;
@@ -31,15 +29,14 @@
   display: block;
 }
 
-/* ===== Controls ===== */
-.lab-controls {
+.meta-controls {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
-.lab-controls input {
+.meta-controls input {
   padding: 8px 10px;
   background: #0d1117;
   border: 1px solid #1f2937;
@@ -47,28 +44,37 @@
   border-radius: 6px;
 }
 
-/* ===== Rows ===== */
 .lab-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 12px;
   background: #111827;
   border: 1px solid #1f2937;
   border-radius: 10px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
-.lab-row input[type="number"] {
+.lab-row input[type="number"],
+.lab-row input[type="text"] {
   width: 80px;
 }
 
 .lab-row input[type="color"] {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: none;
   cursor: pointer;
+}
+
+.lab-row select {
+  background: #0d1117;
+  border: 1px solid #1f2937;
+  color: #e6edf3;
+  padding: 6px;
+  border-radius: 6px;
 }
 
 .lab-row button {
@@ -79,22 +85,27 @@
   font-size: 13px;
 }
 
-.toggle-btn {
-  background: #2563eb;
-  color: white;
-}
-
 .remove-btn {
   background: #dc2626;
   color: white;
 }
 
-/* ===== Export ===== */
+.add-row-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: #38bdf8;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .lab-export {
   margin-top: 40px;
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .lab-export input {
@@ -135,14 +146,14 @@
   <canvas id="preview"></canvas>
 </div>
 
-<div class="lab-controls">
+<div class="meta-controls">
   <input type="text" id="product" placeholder="Product (BR)">
   <input type="text" id="units" placeholder="Units (dBZ)">
   <input type="number" id="step" placeholder="Step">
-  <button onclick="addRow()">Add Row</button>
 </div>
 
 <div id="rows"></div>
+<button class="add-row-btn" onclick="addRow()">Add Row</button>
 
 <div class="lab-export">
   <input type="text" id="filename" placeholder="File Name">
@@ -152,14 +163,16 @@
 </main>
 
 <script>
+
 let rows = [];
 
 function addRow() {
   rows.push({
     value: 0,
-    type: "solid",
-    start: { r: 255, g: 255, b: 255 },
-    end: { r: 255, g: 255, b: 255 }
+    mode: "color",
+    gradient: false,
+    start: { r: 255, g: 255, b: 255, a: 255 },
+    end: { r: 255, g: 255, b: 255, a: 255 }
   });
   renderRows();
   renderPreview();
@@ -170,6 +183,7 @@ function renderRows() {
   container.innerHTML = "";
 
   rows.forEach((row, index) => {
+
     const div = document.createElement("div");
     div.className = "lab-row";
 
@@ -181,84 +195,132 @@ function renderRows() {
       renderPreview();
     };
 
-    const startColor = document.createElement("input");
-    startColor.type = "color";
-    startColor.value = rgbToHex(row.start);
-    startColor.oninput = () => {
-      row.start = hexToRgb(startColor.value);
-      if (row.type === "solid") row.end = {...row.start};
+    const modeSelect = document.createElement("select");
+    ["solid","color","color4"].forEach(mode=>{
+      const opt=document.createElement("option");
+      opt.value=mode;
+      opt.textContent=mode;
+      if(row.mode===mode) opt.selected=true;
+      modeSelect.appendChild(opt);
+    });
+    modeSelect.onchange=()=>{
+      row.mode=modeSelect.value;
       renderPreview();
     };
 
-    const endColor = document.createElement("input");
-    endColor.type = "color";
-    endColor.value = rgbToHex(row.end);
-    endColor.oninput = () => {
-      row.end = hexToRgb(endColor.value);
+    const gradientToggle = document.createElement("input");
+    gradientToggle.type="checkbox";
+    gradientToggle.checked=row.gradient;
+    gradientToggle.onchange=()=>{
+      row.gradient=gradientToggle.checked;
       renderPreview();
     };
 
-    const toggle = document.createElement("button");
-    toggle.className = "toggle-btn";
-    toggle.textContent = row.type === "solid" ? "Solid" : "Gradient";
-    toggle.onclick = () => {
-      row.type = row.type === "solid" ? "gradient" : "solid";
-      toggle.textContent = row.type === "solid" ? "Solid" : "Gradient";
+    const startHex = createHexInput(row.start, (rgb)=>{
+      row.start = rgb;
+      if(row.mode==="solid") row.end={...rgb};
+      renderPreview();
+    });
+
+    const startPicker = createColorPicker(row.start, (rgb)=>{
+      row.start = rgb;
+      if(row.mode==="solid") row.end={...rgb};
+      startHex.value = rgbToHex(rgb);
+      renderPreview();
+    });
+
+    const endHex = createHexInput(row.end, (rgb)=>{
+      row.end = rgb;
+      renderPreview();
+    });
+
+    const endPicker = createColorPicker(row.end, (rgb)=>{
+      row.end = rgb;
+      endHex.value = rgbToHex(rgb);
+      renderPreview();
+    });
+
+    const alphaInput = document.createElement("input");
+    alphaInput.type="number";
+    alphaInput.min=0;
+    alphaInput.max=255;
+    alphaInput.value=row.start.a;
+    alphaInput.oninput=()=>{
+      row.start.a=parseInt(alphaInput.value)||255;
       renderPreview();
     };
 
-    const remove = document.createElement("button");
-    remove.className = "remove-btn";
-    remove.textContent = "X";
-    remove.onclick = () => {
-      rows.splice(index, 1);
+    const remove=document.createElement("button");
+    remove.className="remove-btn";
+    remove.textContent="X";
+    remove.onclick=()=>{
+      rows.splice(index,1);
       renderRows();
       renderPreview();
     };
 
-    div.append(valueInput, startColor, endColor, toggle, remove);
+    div.append(
+      valueInput,
+      modeSelect,
+      gradientToggle,
+      startHex,
+      startPicker,
+      endHex,
+      endPicker,
+      alphaInput,
+      remove
+    );
+
     container.appendChild(div);
   });
 }
 
 function renderPreview() {
-  const canvas = document.getElementById("preview");
-  const ctx = canvas.getContext("2d");
+  const canvas=document.getElementById("preview");
+  const ctx=canvas.getContext("2d");
 
-  canvas.width = canvas.clientWidth;
-  canvas.height = canvas.clientHeight;
+  canvas.width=canvas.clientWidth;
+  canvas.height=canvas.clientHeight;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (!rows.length) return;
+  if(!rows.length) return;
 
-  const sorted = [...rows].sort((a,b)=>a.value-b.value);
-  const min = sorted[0].value;
-  const max = sorted[sorted.length-1].value;
-  if (min === max) return;
+  const sorted=[...rows].sort((a,b)=>a.value-b.value);
+  const min=sorted[0].value;
+  const max=sorted[sorted.length-1].value;
+  if(min===max) return;
 
-  for (let i=0;i<sorted.length;i++) {
-    const row = sorted[i];
-    const next = sorted[i+1];
+  for(let i=0;i<sorted.length;i++){
+    const row=sorted[i];
+    const next=sorted[i+1];
 
-    const startX = ((row.value-min)/(max-min))*canvas.width;
-    const endX = next ? ((next.value-min)/(max-min))*canvas.width : canvas.width;
-    const width = endX-startX;
+    const startX=((row.value-min)/(max-min))*canvas.width;
+    const endX=next?((next.value-min)/(max-min))*canvas.width:canvas.width;
+    const width=endX-startX;
 
-    if (row.type==="solid") {
-      ctx.fillStyle=`rgb(${row.start.r},${row.start.g},${row.start.b})`;
+    if(row.mode==="solid"||!next){
+      ctx.fillStyle=rgba(row.start);
       ctx.fillRect(startX,0,width,canvas.height);
-    } else {
-      const grad=ctx.createLinearGradient(startX,0,endX,0);
-      grad.addColorStop(0,`rgb(${row.start.r},${row.start.g},${row.start.b})`);
-      grad.addColorStop(1,`rgb(${row.end.r},${row.end.g},${row.end.b})`);
-      ctx.fillStyle=grad;
-      ctx.fillRect(startX,0,width,canvas.height);
+      continue;
     }
+
+    const grad=ctx.createLinearGradient(startX,0,endX,0);
+
+    if(row.gradient){
+      grad.addColorStop(0,rgba(row.start));
+      grad.addColorStop(1,rgba(row.end));
+    } else {
+      grad.addColorStop(0,rgba(row.start));
+      grad.addColorStop(1,rgba(next.start));
+    }
+
+    ctx.fillStyle=grad;
+    ctx.fillRect(startX,0,width,canvas.height);
   }
 }
 
-function downloadPal() {
-  if (!rows.length) return;
+function downloadPal(){
+  if(!rows.length) return;
 
   const product=document.getElementById("product").value||"BR";
   const units=document.getElementById("units").value||"dBZ";
@@ -270,10 +332,18 @@ function downloadPal() {
   const sorted=[...rows].sort((a,b)=>a.value-b.value);
 
   sorted.forEach(row=>{
-    if(row.type==="solid"){
+    if(row.mode==="solid"){
       content+=`solidcolor: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b}\n`;
-    } else {
-      content+=`color: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b} ${row.end.r} ${row.end.g} ${row.end.b}\n`;
+    }
+    else if(row.mode==="color"){
+      if(row.gradient){
+        content+=`color: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b} ${row.end.r} ${row.end.g} ${row.end.b}\n`;
+      } else {
+        content+=`color: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b}\n`;
+      }
+    }
+    else if(row.mode==="color4"){
+      content+=`color4: ${row.value} ${row.start.r} ${row.start.g} ${row.start.b} ${row.start.a}\n`;
     }
   });
 
@@ -284,20 +354,48 @@ function downloadPal() {
   a.click();
 }
 
+function rgba({r,g,b,a=255}) {
+  return `rgba(${r},${g},${b},${a/255})`;
+}
+
 function rgbToHex({r,g,b}) {
   return "#" + [r,g,b].map(x=>x.toString(16).padStart(2,"0")).join("");
 }
 
-function hexToRgb(hex) {
+function hexToRgb(hex){
   const bigint=parseInt(hex.slice(1),16);
   return {
     r:(bigint>>16)&255,
     g:(bigint>>8)&255,
-    b:bigint&255
+    b:bigint&255,
+    a:255
   };
 }
 
+function createHexInput(color,callback){
+  const input=document.createElement("input");
+  input.type="text";
+  input.value=rgbToHex(color);
+  input.oninput=()=>{
+    if(/^#([0-9A-F]{3}){1,2}$/i.test(input.value)){
+      callback(hexToRgb(input.value));
+    }
+  };
+  return input;
+}
+
+function createColorPicker(color,callback){
+  const input=document.createElement("input");
+  input.type="color";
+  input.value=rgbToHex(color);
+  input.oninput=()=>{
+    callback(hexToRgb(input.value));
+  };
+  return input;
+}
+
 addRow();
+
 </script>
 
 </body>
