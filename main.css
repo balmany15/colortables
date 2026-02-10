@@ -362,10 +362,28 @@ footer .disclaimer {
   margin-bottom:30px;
 }
 
-.meta input{
-  color:#38bdf8;   /* or whatever color you want */
-  font-weight:600; /* optional */
+/* Meta Fields Styled Like Rows */
+.meta input {
+  background: #111827;
+  border: 1px solid #1d4ed8;
+  border-radius: 8px;
+  transition: 0.2s ease;
 }
+
+/* Hover glow like rows */
+.meta input:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+}
+
+/* Focus glow */
+.meta input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+
 
 input,select{
   background:#111827;
