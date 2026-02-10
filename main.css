@@ -86,8 +86,14 @@ nav {
   border-radius: 6px;
   cursor: pointer;
   font-size: 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   transition: 0.2s ease;
 }
+
+nav a.nav-btn {
+  font-weight: 600;
+}
+
 
 .nav-btn:hover {
   background: #374151;
