@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_CRH.pal",
       "NWS_Default.pal",
       "NWS_Deluth.pal",
-      "NWS_KLOT.pal",
-      "NWS_KLOT2.pal",
+      "NWS_LOT.pal",
+      "NWS_LOT2.pal",
       "NWS_LaCrosse.pal",
       "NWS_Louisville.pal",
       "NWS_NSSL-OUN.pal",
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "PhasedArray.pal",
       "RadarOmega.pal",
       "RadarScope.pal",
+      "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
       "Solid_Reflectivity.pal",
       "SolidTV.pal",
@@ -62,10 +63,220 @@ document.addEventListener("DOMContentLoaded", () => {
       "BARON.pal",
       "FOXWEATHER.pal",
       "The_Weather_Channel.pal",
+      "Ritter_Reflectivity.pal",
       "Weather_Underground.pal",
       "WSI.pal"
     ]
   };
+
+// Optional credits per file
+const credits = {
+  
+  "ALPHA_Velo.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+  "AVL_Broadcast.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "BARON.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+  "Baron256.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "BaronLynx.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Blue_Doppler.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Chaser_HD.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "CLT_Broadcast.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "CODE_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Custom_Doppler.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Custom_Doppler2.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Custom_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Dark_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "DuPageWx.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "DuPageWx2.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "EAX_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "FOXWEATHER.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "FOXweather.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "GMED_Reflectivity.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "HD_SuperRes.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Hunter_Refl.pal": {
+    name: "@DelmarvaWx",
+    url: "https://x.com/DelmarvaWx"
+  },
+    "Ivan.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NSSL.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NSSL2.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NSSL3.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_CRH.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_Default.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_Deluth.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_LOT.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_LOT2.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_LaCrosse.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_Louisville.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_Miami.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_NSSL-OUN.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_SR.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_Wichita.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "PhasedArray.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "RadarOmega.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "RadarScope.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+      "Ritter_Reflectivity.pal": {
+    name: "@MetMattRitter",
+    url: "https://x.com/MetMattRitter"
+  },
+    "SimuAwips.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "SimuAwipsRC.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Solid_Reflectivity.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "SolidTV.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "The_Weather_Channel.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "UCAR_Velocity.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "WDTD_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Weather_Underground.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "WSI.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "WxTap_BR.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "WxTap_RadarLabHD.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  }
+};
 
   // 🔥 READ URL FIRST
   const params = new URLSearchParams(window.location.search);
@@ -125,13 +336,34 @@ document.addEventListener("DOMContentLoaded", () => {
     img.onerror = () => {
       img.src = PLACEHOLDER_IMAGE;
     };
+// Name
+const name = document.createElement("div");
+name.className = "card-name";
+name.textContent = formatName(filename);
 
-    const name = document.createElement("div");
-    name.className = "card-name";
-    name.textContent = formatName(filename);
+// Append image first
+top.appendChild(img);
 
-    top.appendChild(img);
-    top.appendChild(name);
+// Append name second
+top.appendChild(name);
+
+// Credit (if exists)
+if (credits[filename]) {
+  const credit = document.createElement("div");
+  credit.className = "card-credit";
+
+  const creditLink = document.createElement("a");
+  creditLink.href = credits[filename].url;
+  creditLink.target = "_blank";
+  creditLink.rel = "noopener noreferrer";
+  creditLink.textContent = credits[filename].name;
+
+  /*credit.appendChild(document.createTextNode(" "));*/
+  credit.appendChild(creditLink);
+
+  top.appendChild(credit);
+}
+
 
     const download = document.createElement("a");
     download.className = "download-btn";
