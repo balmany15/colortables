@@ -4,9 +4,9 @@
   --brand-deep: #1d4ed8;
   --brand-atmo: rgba(124,58,237,0.25);
 
-  --bg-base: #0b1220;
+  --bg-base: #0d1117;
   --bg-surface: #111827;
-  --bg-card: rgba(17, 24, 39, 0.85);
+  --bg-card: #0f172a;
 
   --border-subtle: #1f2937;
 
@@ -23,13 +23,12 @@
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 20% 10%, rgba(0,153,255,0.18), transparent 15%),
-    radial-gradient(circle at 80% 90%, rgba(29,78,216,0.25), transparent 50%),
+    radial-gradient(circle at 20% 10%, rgba(10 11 20), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(48 53 96), transparent 40%),
     #0b1220;
-  color: var(--text-primary);
+  color: #e6edf3;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
-
 
 /* ===== Header ===== */
 header {
@@ -89,29 +88,39 @@ header p {
 
 
 /* ===== Navigation ===== */
-.nav-btn {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: clamp(14px, 3vw, 20px);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: all 0.2s ease;
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
+.nav-btn {
+  background: #1f2937;
+  color: #cbd5e1;
+  border: 1px solid #2d3748;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: 0.2s ease;
+}
+
+nav a.nav-btn {
+  font-weight: 600;
+}
+
+
 .nav-btn:hover {
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 12px rgba(0,153,255,0.25);
+  background: #374151;
 }
 
 .nav-btn.active {
-  background: var(--brand-deep);
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 16px rgba(0,153,255,0.4);
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: white;
 }
-
 
 .nav-link {
   background: #1f2937;
@@ -172,22 +181,20 @@ main {
 
 /* ===== Card ===== */
 .card {
-  background: var(--bg-card);
+  background: rgba(17, 24, 39, 0.85);
   border-radius: 16px;
-  border: 1px solid var(--brand-primary);
   overflow: hidden;
   padding: 22px;
   display: flex;
   flex-direction: column;
   text-align: center;
-  transition: all 0.25s ease;
+  will-change: transform;
+    border: 1px solid #1d4ed8;   /* 👈 Your new border */
+
+ /* transition: transform 0.25s ease, box-shadow 0.25s ease;*/
 }
 
-.card:hover {
-  box-shadow:
-    0 0 12px rgba(0,153,255,0.3),
-    0 0 28px rgba(0,153,255,0.15);
-}
+
 
 
 /* ===== Thumbnail ===== */
@@ -213,21 +220,22 @@ main {
 /* ===== Download Button ===== */
 .download-btn {
   display: inline-block;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-deep));
+  background: linear-gradient(135deg, #38bdf8, #1d4ed8);
   color: white;
   text-decoration: none;
   padding: 12px 18px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 16px;   /* 👈 Explicit size */
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  margin-top: 0px;
 }
+
 
 .download-btn:hover {
-  box-shadow: 0 0 24px rgba(0,153,255,0.5);
   transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(37,99,235,0.6);
 }
-
 
 .download-btn:active {
   transform: translateY(1px);
@@ -262,23 +270,26 @@ footer .disclaimer {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 1px;
-  color: var(--brand-primary);
+  color: #38bdf8;
   display: flex;
   align-items: center;
   gap: 8px;
-  text-decoration: none;
+  text-decoration: none;   /* 👈 removes underline */
   opacity: 0.9;
   transition: opacity 0.2s ease;
+}
+
+.live-indicator:hover {
+  opacity: 1;
 }
 
 .live-indicator .dot {
   width: 8px;
   height: 8px;
-  background: var(--brand-glow);
+  background: #38bdf8;
   border-radius: 50%;
   animation: pulse 2s infinite ease-in-out;
 }
-
 
 /* Pulsing animation */
 @keyframes pulse {
@@ -435,24 +446,33 @@ input[type="color"]::-webkit-color-swatch{
 }
 
 
-.row {
+.row{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
   align-items:center;
-  background: var(--bg-surface);
+  background:#111827;
   padding:10px;
   border-radius:8px;
   width: 100%;
-  border:1px solid var(--brand-deep);
+
+  border:1px solid rgba(29,78,216,0.8);
+  box-shadow: 0 0 6px rgba(56,189,248,0.15);
   transition: all 0.25s ease;
 }
 
-.row:hover {
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 16px rgba(0,153,255,0.25);
+.row:hover{
+  box-shadow:
+    0 0 8px rgba(56,189,248,0.35),
+    0 0 16px rgba(56,189,248,0.2);
+  border-color:#38bdf8;
 }
 
+
+.row:hover{
+  border-color:#38bdf8;
+  box-shadow: 0 0 8px rgba(56,189,248,0.25);
+}
 
 .row label {
   font-family: 'JetBrains Mono', monospace;
@@ -561,20 +581,27 @@ button:active{
   margin-bottom:50px; /* space between legend and meta */
 }
 
-.preview {
+.preview{
   height:40px;
-  border:1px solid var(--brand-primary);
-  border-radius:8px;
-  box-shadow: 0 0 12px rgba(0,153,255,0.2);
+  border:1px solid rgba(29,78,216,0.8);
+  box-shadow: 0 0 6px rgba(56,189,248,0.15);
   transition: all 0.25s ease;
+  background:
+    repeating-linear-gradient(45deg,#111 0 10px,#1a1a1a 10px 20px);
 }
 
-.preview:hover {
+.preview:hover{
   box-shadow:
-    0 0 18px rgba(0,153,255,0.35),
-    0 0 32px rgba(0,153,255,0.2);
+    0 0 8px rgba(56,189,248,0.35),
+    0 0 16px rgba(56,189,248,0.2);
+  border-color:#38bdf8;
 }
 
+
+.preview:hover{
+  border-color:#38bdf8;
+  box-shadow: 0 0 28px rgba(56,189,248,0.25);
+}
 
 .legend {
   position: relative;
