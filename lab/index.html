@@ -198,11 +198,23 @@ function addRow(data){
     modeSelect.value=data.type;
   }
 
-  // START COLOR SET
-  const startSet=document.createElement("div");
-  startSet.className="color-set";
-  createColorSet(startSet,data?data.start:{r:0,g:215,b:130,a:255});
-  row.appendChild(startSet);
+// START COLOR SET
+const startSet = document.createElement("div");
+startSet.className = "color-set";
+
+function rebuildStartSet() {
+  const withAlpha = modeSelect.value === "color4" || modeSelect.value === "solid4";
+
+  createColorSet(
+    startSet,
+    data ? data.start : { r: 0, g: 215, b: 130, a: 255 },
+    withAlpha
+  );
+}
+
+rebuildStartSet();
+row.appendChild(startSet);
+
 
   // USE END CHECKBOX (RIGHT AFTER START COLOR)
   const endWrapper=document.createElement("label");
@@ -227,7 +239,17 @@ function addRow(data){
   const endSet=document.createElement("div");
   endSet.className="color-set";
   endSet.style.display="none";
-  createColorSet(endSet,data?.end || {r:255,g:0,b:0,a:255});
+function rebuildEndSet() {
+  const withAlpha = modeSelect.value === "color4";
+  createColorSet(
+    endSet,
+    data?.end || { r: 255, g: 0, b: 0, a: 255 },
+    withAlpha
+  );
+}
+
+rebuildEndSet();
+
   row.appendChild(endSet);
 
   if(data?.end) endToggle.checked=true;
@@ -248,7 +270,11 @@ function addRow(data){
     updatePreview();
   }
 
-  modeSelect.addEventListener("change",updateVisibility);
+modeSelect.addEventListener("change", () => {
+  rebuildStartSet();
+  updateVisibility();
+});
+
   endToggle.addEventListener("change",updateVisibility);
   row.addEventListener("input",updatePreview);
 
