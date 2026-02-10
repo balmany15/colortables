@@ -4,80 +4,181 @@
 <meta charset="UTF-8">
 <title>WeatherWise Color Lab</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../main.css">
+
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-
 <style>
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 40px 30px;
+}
+
+  
+body{
+  margin:0;
+  background:#0d1117;
+  color:#e6edf3;
+  font-family:'JetBrains Mono', monospace;
+  padding:40px;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.preview{
+  height:40px;
+  border:1px solid #38bdf8;
+  border-radius:8px;
+  margin-bottom:30px;
+  background:
+    repeating-linear-gradient(45deg,#111 0 10px,#1a1a1a 10px 20px);
+}
+
+.meta{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+  margin-bottom:30px;
+}
+
+input,select{
+  background:#111827;
+  border:1px solid #1f2937;
+  color:#e6edf3;
+  padding:8px;
+  border-radius:6px;
+  font-family:'JetBrains Mono', monospace;
+}
+
+input[type="color"]{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper{
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch{
+  border: 1px solid #1f2937;
+  border-radius: 4px;
+}
+
+
+.rows{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  background:#111827;
+  padding:10px;
+  border-radius:8px;
+}
+
+.color-set{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.color-set input[type="number"]{
+  width:55px;
+}
+
+.color-set input.hex{
+  width:85px;
+  text-transform:uppercase;
+}
+
+button{
+  background:#2563eb;
+  border:none;
+  color:white;
+  padding:10px 16px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+.controls{
+  margin-top:25px;
+  display:flex;
+  gap:10px;
+}
+
+
+.delete-btn {
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: #94a3b8;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease;
+}
+
+.delete-btn:hover {
+  background: #7f1d1d;
+  border-color: #991b1b;
+  color: #fff;
+}
+
+.delete-btn svg {
+  pointer-events: none;
+}
+
+
 
 </style>
 </head>
-<body class="lab-page">
+<body>
+<div class="container">
 
-  <header>
-<a href="https://web.weatherwise.app/" target="_blank" rel="noopener noreferrer" class="live-indicator">
-  <span class="dot"></span>
-  LIVE RADAR
-</a>
-<h1 class="logo-heading">
-  <img src="https://www.weatherwise.app/img/logo.svg" alt="WeatherWise logo">
-  <span class="brand">
-    Weather<span class="accent">Wise</span>
-  </span>
-  Color Tables
-</h1>
+<h1>WeatherWise Color Lab</h1>
 
+<div id="preview" class="preview"></div>
 
-<nav>
-  <a href="../?category=reflectivity" class="nav-btn">⚡Reflectivity</button>
-  <a href="../?category=velocity" class="nav-btn">🌪️Velocity</button>
-  <a href="../?category=ptype" class="nav-btn">🌨️Precipitation Type</button>
-<a href="../how-to/" class="nav-btn">📝How To</a>
-<a href="../submit/" class="nav-btn">📥Submit</a>
-<a href="../lab/" class="nav-btn active">🧪Color Lab</a>
+<div class="meta">
+  <input id="product" placeholder="Product (BR)">
+  <input id="units" placeholder="Units (dBZ)">
+  <input id="scale" placeholder="Scale">
+  <input id="offset" placeholder="Offset">
+  <input id="step" placeholder="Step">
+</div>
 
-</nav>
+<div id="rows" class="rows"></div>
 
-
-  </header>
-<main>
-  <div class="container">
-
-<h1 class="lab-title">
-  🧪COLOR LAB
-</h1>
-
-
-    <div id="preview" class="preview"></div>
-
-    <div id="legend" class="legend"></div>
-
-    <div class="meta">
-      <input id="product" placeholder="Product (BR)">
-      <input id="units" placeholder="Units (dBZ)">
-      <input id="scale" placeholder="Scale">
-      <input id="offset" placeholder="Offset">
-      <input id="step" placeholder="Step">
-    </div>
-
-    <div id="rows" class="rows"></div>
-
-    <div class="controls">
-      <button onclick="addRow()">Add Row</button>
-      <button onclick="downloadPAL()">Download .PAL</button>
-    </div>
-
-  </div>
-</main>
+<div class="controls">
+  <button onclick="addRow()">Add Row</button>
+  <button onclick="downloadPAL()">Download .PAL</button>
+</div>
 
 
 <script>
 const rowsContainer=document.getElementById("rows");
 
 const preview=document.getElementById("preview");
-
-const ticksContainer = document.getElementById("legend");
-
 
 const defaultTable = [
   { value: 0,   type: "color",  start: {r:0,g:215,b:130} },
@@ -87,7 +188,7 @@ const defaultTable = [
   { value: 45,  type: "color",  start: {r:255,g:0,b:0}, end:{r:150,g:0,b:0} },
   { value: 55,  type: "color",  start: {r:175,g:0,b:150} },
   { value: 60,  type: "color",  start: {r:230,g:100,b:230} },
-  { value: 70,  type: "color",  start: {r:0,g:0,b:0} },
+  { value: 70,  type: "solid",  start: {r:0,g:0,b:0} },
   { value: 90,  type: "solid",  start: {r:255,g:255,b:255} }
 ];
 
@@ -216,7 +317,7 @@ function addRow(data){
   endToggle.className="useEnd";
 
   const endText=document.createElement("span");
-  endText.textContent="End Color";
+  endText.textContent="End";
 
   endWrapper.appendChild(endToggle);
   endWrapper.appendChild(endText);
@@ -300,9 +401,6 @@ rows.forEach(row => rowsContainer.appendChild(row));
   const max=Math.max(...values);
   const range = max - min || 1;
 
-  // Clear previous ticks
-ticksContainer.innerHTML = "";
-
   let stops=[];
 
   for(let i=0;i<rows.length;i++){
@@ -310,19 +408,6 @@ ticksContainer.innerHTML = "";
     const row = rows[i];
     const value = parseFloat(row.querySelector(".value").value)||0;
     const percent = ((value-min)/range)*100;
-
-    // Create tick
-const tick = document.createElement("div");
-tick.className = "tick";
-tick.style.left = percent + "%";
-
-tick.innerHTML = `
-  <div class="tick-line"></div>
-  <div>${value}</div>
-`;
-
-ticksContainer.appendChild(tick);
-
 
     const mode = row.querySelector(".mode").value;
     const useEnd = row.querySelector(".useEnd")?.checked;
