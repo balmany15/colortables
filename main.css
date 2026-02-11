@@ -162,6 +162,7 @@ header p {
 .nav-btn:hover {
   border-color: var(--brand-primary);
   box-shadow: 0 0 12px rgba(0,153,255,0.25);
+      text-decoration: none;
 }
 
 .nav-btn.active {
@@ -185,6 +186,7 @@ header p {
 
 .nav-link:hover {
   background: #374151;
+    text-decoration: none;
 }
 
 
