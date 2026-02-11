@@ -94,12 +94,15 @@ header p {
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: clamp(14px, 3vw, 20px);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: all 0.2s ease;
+  font-weight: 600;   /* 👈 Add this */
+  transition: 0.2s ease;
+  text-decoration: none;
 }
+
 
 .nav-btn:hover {
   border-color: var(--brand-primary);
@@ -129,13 +132,6 @@ header p {
   background: #374151;
 }
 
-.nav-btn {
-  text-decoration: none;
-}
-
-.nav-btn {
-  font-size: clamp(14px, 3vw, 20px);
-}
 
 header {
   position: relative;
