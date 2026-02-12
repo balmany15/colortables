@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Baron256.pal",
       "BaronLynx.pal",
       "Blue_Doppler.pal",
-      "CHSWX.pal",
+      "Charleston.pal",
       "CLT_Broadcast.pal",
       "CODE_Z.pal",
       "Custom_Doppler.pal",
