@@ -119,71 +119,97 @@ function hexToRgb(hex){
   }:null;
 }
 
-function createColorSet(container,data,withAlpha=false){
-  container.innerHTML=`
-    <input type="color" class="picker">
-    <input type="text" class="hex">
-    <input type="number" class="r" min="0" max="255">
-    <input type="number" class="g" min="0" max="255">
-    <input type="number" class="b" min="0" max="255">
-    ${withAlpha ? '<input type="number" class="a" min="0" max="255">' : ''}
-  `;
+function createColorSet(container, data, withAlpha = false) {
 
-  const picker=container.querySelector(".picker");
-  const hexInput=container.querySelector(".hex");
-  const rInput=container.querySelector(".r");
-  const gInput=container.querySelector(".g");
-  const bInput=container.querySelector(".b");
-  const aInput=container.querySelector(".a");
+  const picker = document.createElement("input");
+  picker.type = "color";
+  picker.className = "picker";
 
-  function syncFromRGB(){
-    const hex=rgbToHex(rInput.value,gInput.value,bInput.value);
-    picker.value=hex;
-    hexInput.value=hex;
+  const hexInput = document.createElement("input");
+  hexInput.type = "text";
+  hexInput.className = "hex";
+
+  const rInput = document.createElement("input");
+  rInput.type = "number";
+  rInput.className = "r";
+  rInput.min = 0;
+  rInput.max = 255;
+
+  const gInput = document.createElement("input");
+  gInput.type = "number";
+  gInput.className = "g";
+  gInput.min = 0;
+  gInput.max = 255;
+
+  const bInput = document.createElement("input");
+  bInput.type = "number";
+  bInput.className = "b";
+  bInput.min = 0;
+  bInput.max = 255;
+
+  container.append(picker, hexInput, rInput, gInput, bInput);
+
+  let aInput = null;
+
+  if (withAlpha) {
+    aInput = document.createElement("input");
+    aInput.type = "number";
+    aInput.className = "a";
+    aInput.min = 0;
+    aInput.max = 255;
+    container.append(aInput);
   }
 
-  function syncFromHEX(){
-    const rgb=hexToRgb(hexInput.value);
-    if(rgb){
-      rInput.value=rgb.r;
-      gInput.value=rgb.g;
-      bInput.value=rgb.b;
-      picker.value=hexInput.value;
+  function syncFromRGB() {
+    const hex = rgbToHex(rInput.value || 0, gInput.value || 0, bInput.value || 0);
+    picker.value = hex;
+    hexInput.value = hex;
+    updatePreview();
+  }
+
+  function syncFromHEX() {
+    const rgb = hexToRgb(hexInput.value);
+    if (rgb) {
+      rInput.value = rgb.r;
+      gInput.value = rgb.g;
+      bInput.value = rgb.b;
+      picker.value = hexInput.value;
+      updatePreview();
     }
   }
 
-  rInput.value=data.r;
-  gInput.value=data.g;
-  bInput.value=data.b;
-  if(aInput) aInput.value=data.a ?? 255;
+  function syncFromPicker() {
+    const rgb = hexToRgb(picker.value);
+    rInput.value = rgb.r;
+    gInput.value = rgb.g;
+    bInput.value = rgb.b;
+    hexInput.value = picker.value;
+    updatePreview();
+  }
+
+  // Initial values
+  rInput.value = data.r;
+  gInput.value = data.g;
+  bInput.value = data.b;
+  if (aInput) aInput.value = data.a ?? 255;
+
   syncFromRGB();
 
-  picker.addEventListener("input",()=>{
-    const rgb=hexToRgb(picker.value);
-    rInput.value=rgb.r;
-    gInput.value=rgb.g;
-    bInput.value=rgb.b;
-    hexInput.value=picker.value;
-    updatePreview();
-  });
+  // 🔥 IMPORTANT — use change for picker (not input)
+  picker.addEventListener("change", syncFromPicker);
 
-  container.addEventListener("input",e=>{
-    if(e.target.classList.contains("r")||
-       e.target.classList.contains("g")||
-       e.target.classList.contains("b")||
-       e.target.classList.contains("a")){
-      syncFromRGB();
-      updatePreview();
-    }
-  });
+  rInput.addEventListener("input", syncFromRGB);
+  gInput.addEventListener("input", syncFromRGB);
+  bInput.addEventListener("input", syncFromRGB);
+  if (aInput) aInput.addEventListener("input", updatePreview);
 
-  hexInput.addEventListener("input",()=>{
-    if(/^#([0-9A-F]{6})$/i.test(hexInput.value)){
+  hexInput.addEventListener("input", () => {
+    if (/^#([0-9A-F]{6})$/i.test(hexInput.value)) {
       syncFromHEX();
-      updatePreview();
     }
   });
 }
+
 
 
 function addRow(data){
@@ -287,7 +313,7 @@ modeSelect.addEventListener("change", () => {
 });
 
   endToggle.addEventListener("change",updateVisibility);
-  row.addEventListener("input",updatePreview);
+
 
 // DELETE BUTTON
 const deleteBtn = document.createElement("button");
@@ -425,7 +451,25 @@ function downloadPAL(){
            (parseFloat(b.querySelector(".value").value)||0);
   });
 
-  let content="";
+  // 🔥 Grab meta values
+  const product = document.getElementById("product").value || "";
+  const units   = document.getElementById("units").value   || "";
+  const scale   = document.getElementById("scale").value   || "";
+  const offset  = document.getElementById("offset").value  || "";
+  const step    = document.getElementById("step").value    || "";
+
+  let content = "";
+
+  // ✅ First two required rows
+  content += `Product: ${product}\n`;
+  content += `Units: ${units}\n`;
+
+  // Optional extras (only write if filled in)
+  if(scale)  content += `Scale: ${scale}\n`;
+  if(offset) content += `Offset: ${offset}\n`;
+  if(step)   content += `Step: ${step}\n`;
+
+  content += `\n`;
 
   rows.forEach(row=>{
     const val=row.querySelector(".value").value;
@@ -475,11 +519,12 @@ function downloadPAL(){
   });
 
   const blob=new Blob([content],{type:"text/plain"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="colortable.pal";
-  a.click();
+  const aTag=document.createElement("a");
+  aTag.href=URL.createObjectURL(blob);
+  aTag.download="colortable.pal";
+  aTag.click();
 }
+
 
 
 // Load default table on startup
