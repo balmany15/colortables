@@ -228,6 +228,9 @@ function addRow(data){
 
 
   const valueInput=row.querySelector(".value");
+  valueInput.addEventListener("input", updatePreview);
+valueInput.addEventListener("change", updatePreview);
+
   const modeSelect=row.querySelector(".mode");
 
   if(data){
