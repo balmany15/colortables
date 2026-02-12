@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_LOT2.pal",
       "NWS_LaCrosse.pal",
       "NWS_Louisville.pal",
-      "NWS_NSSL-OUN.pal",
+      "NWS_OUN.pal",
       "NWS_SR.pal",
       "NWS_Wichita.pal",
       "PhasedArray.pal",
@@ -209,7 +209,7 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NWS_NSSL-OUN.pal": {
+    "NWS_OUN.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
