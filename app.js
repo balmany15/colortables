@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_Legacy.pal",
       "NWS_LOT.pal",
       "NWS_Miami.pal",
+      "OMEGA_Velo.pal",
       "SimuAwips.pal",
       "UCAR_Velocity.pal"
     ],
@@ -218,6 +219,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_Wichita.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+      "OMEGA_Velo.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
