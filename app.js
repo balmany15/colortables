@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Baron256.pal",
       "BaronLynx.pal",
       "Blue_Doppler.pal",
+      "CHSWX.pal",
       "CLT_Broadcast.pal",
       "CODE_Z.pal",
       "Custom_Doppler.pal",
@@ -99,6 +100,10 @@ const credits = {
     "Chaser_HD.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
+  },
+      "Charleston.pal": {
+    name: "@chswx",
+    url: "https://x.com/chswx"
   },
     "CLT_Broadcast.pal": {
     name: "@AlmanyDesigns",
