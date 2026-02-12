@@ -231,6 +231,11 @@ function addRow(data){
   const valueInput=row.querySelector(".value");
   valueInput.addEventListener("input", updatePreview);
 valueInput.addEventListener("change", updatePreview);
+valueInput.addEventListener("blur", () => {
+  sortRows();
+  updatePreview();
+});
+
 
   const modeSelect=row.querySelector(".mode");
 
@@ -372,6 +377,18 @@ row.appendChild(deleteBtn);
   updateVisibility();
 }
 
+function sortRows() {
+  const rows = [...document.querySelectorAll(".row")];
+
+  rows.sort((a, b) => {
+    return (parseFloat(a.querySelector(".value").value) || 0) -
+           (parseFloat(b.querySelector(".value").value) || 0);
+           
+  });
+
+  rows.forEach(row => rowsContainer.appendChild(row));
+}
+
 
 function updatePreview(){
   const rows=[...document.querySelectorAll(".row")];
@@ -383,7 +400,6 @@ rows.sort((a,b)=>{
 });
 
 // 🔥 Visually reorder rows
-rows.forEach(row => rowsContainer.appendChild(row));
 
 
   const values=rows.map(r=>parseFloat(r.querySelector(".value").value)||0);
