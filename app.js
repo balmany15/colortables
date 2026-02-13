@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "HD_SuperRes.pal",
       "Hunter_Refl.pal",
       "Ivan.pal",
+      "myradar.pal",
       "NSSL.pal",
       "NSSL2.pal",
       "NSSL3.pal",
@@ -64,8 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ptype: [
       "BARON.pal",
       "FOXWEATHER.pal",
-      "The_Weather_Channel.pal",
       "Ritter_Reflectivity.pal",
+      "The_Weather_Channel.pal",
+      "Tropical_Tidbits.pal",
       "Weather_Underground.pal",
       "WSI.pal"
     ]
@@ -166,6 +168,10 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
+      "myradar.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
     "NSSL.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
@@ -259,6 +265,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "The_Weather_Channel.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+      "Tropical_Tidbits.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
