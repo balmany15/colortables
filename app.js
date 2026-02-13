@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
       "NSSL2.pal",
       "NSSL3.pal",
       "NWS_CRH.pal",
-      "NWS_Default.pal",
       "NWS_Deluth.pal",
+      "NWS_LaCrosse.pal",
+      "NWS_Legacy.pal",
       "NWS_LOT.pal",
       "NWS_LOT2.pal",
-      "NWS_LaCrosse.pal",
       "NWS_Louisville.pal",
       "NWS_OUN.pal",
       "NWS_SR.pal",
@@ -54,9 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
     velocity: [
       "ALPHA_Velo.pal",
       "Chaser_HD.pal",
-      "NWS_Default.pal",
+      "NWS_Legacy.pal",
       "NWS_LOT.pal",
       "NWS_Miami.pal",
+      "OMEGA_Velo.pal",
       "SimuAwips.pal",
       "UCAR_Velocity.pal"
     ],
@@ -181,11 +182,15 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NWS_Default.pal": {
+    "NWS_Deluth.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NWS_Deluth.pal": {
+      "NWS_LaCrosse.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+      "NWS_Legacy.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -194,10 +199,6 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_LOT2.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "NWS_LaCrosse.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -218,6 +219,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_Wichita.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+      "OMEGA_Velo.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },

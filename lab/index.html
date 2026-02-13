@@ -8,6 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
 <link rel="apple-touch-icon" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 
@@ -148,6 +149,7 @@ function createColorSet(container, data, withAlpha = false) {
   bInput.max = 255;
 
   container.append(picker, hexInput, rInput, gInput, bInput);
+  
 
   let aInput = null;
 
@@ -228,6 +230,14 @@ function addRow(data){
 
 
   const valueInput=row.querySelector(".value");
+  valueInput.addEventListener("input", updatePreview);
+valueInput.addEventListener("change", updatePreview);
+valueInput.addEventListener("blur", () => {
+  sortRows();
+  updatePreview();
+});
+
+
   const modeSelect=row.querySelector(".mode");
 
   if(data){
@@ -240,6 +250,8 @@ const startSet = document.createElement("div");
 startSet.className = "color-set";
 
 function rebuildStartSet() {
+  startSet.innerHTML = "";   // 🔥 CLEAR OLD INPUTS FIRST
+
   const withAlpha = modeSelect.value === "color4" || modeSelect.value === "solid4";
 
   createColorSet(
@@ -248,6 +260,7 @@ function rebuildStartSet() {
     withAlpha
   );
 }
+
 
 rebuildStartSet();
 row.appendChild(startSet);
@@ -277,7 +290,10 @@ row.appendChild(startSet);
   endSet.className="color-set";
   endSet.style.display="none";
 function rebuildEndSet() {
+  endSet.innerHTML = "";   // 🔥 CLEAR OLD INPUTS FIRST
+
   const withAlpha = modeSelect.value === "color4";
+
   createColorSet(
     endSet,
     data?.end || { r: 255, g: 0, b: 0, a: 255 },
@@ -285,27 +301,45 @@ function rebuildEndSet() {
   );
 }
 
+
 rebuildEndSet();
 
   row.appendChild(endSet);
 
   if(data?.end) endToggle.checked=true;
 
-  function updateVisibility(){
-    const mode=modeSelect.value;
+function updateVisibility(){
 
-    const allowsEnd = (mode==="color" || mode==="color4");
+  const mode = modeSelect.value;
+  const allowsEnd = (mode === "color" || mode === "color4");
+  const usesAlpha = (mode === "color4" || mode === "solid4");
 
-    endWrapper.style.display = allowsEnd ? "flex" : "none";
+  // 🔥 Toggle alpha on START set
+  const startAlpha = startSet.querySelector(".a");
+  if(startAlpha){
+    startAlpha.style.display = usesAlpha ? "inline-block" : "none";
+  }
 
-    if(allowsEnd && endToggle.checked){
-      endSet.style.display="flex";
-    } else {
-      endSet.style.display="none";
+  // 🔥 Toggle End checkbox visibility
+  endWrapper.style.display = allowsEnd ? "flex" : "none";
+
+  // 🔥 Toggle END color-set
+  if(allowsEnd && endToggle.checked){
+    endSet.style.display = "flex";
+
+    const endAlpha = endSet.querySelector(".a");
+    if(endAlpha){
+      endAlpha.style.display = (mode === "color4") ? "inline-block" : "none";
     }
 
-    updatePreview();
+  } else {
+    endSet.style.display = "none";
   }
+
+  updatePreview();
+}
+
+
 
 modeSelect.addEventListener("change", () => {
   rebuildStartSet();
@@ -344,6 +378,18 @@ row.appendChild(deleteBtn);
   updateVisibility();
 }
 
+function sortRows() {
+  const rows = [...document.querySelectorAll(".row")];
+
+  rows.sort((a, b) => {
+    return (parseFloat(a.querySelector(".value").value) || 0) -
+           (parseFloat(b.querySelector(".value").value) || 0);
+           
+  });
+
+  rows.forEach(row => rowsContainer.appendChild(row));
+}
+
 
 function updatePreview(){
   const rows=[...document.querySelectorAll(".row")];
@@ -355,7 +401,6 @@ rows.sort((a,b)=>{
 });
 
 // 🔥 Visually reorder rows
-rows.forEach(row => rowsContainer.appendChild(row));
 
 
   const values=rows.map(r=>parseFloat(r.querySelector(".value").value)||0);
