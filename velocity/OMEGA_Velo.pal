@@ -1,13 +1,14 @@
 Product: BV
-Units: KTS
+Units: MPH
+scale: 2.23694
 
 Color: -120 5 14 55
 Color: -100 9 27 109
-Color: -75 0 119 255
-Color: -50 0 255 123
+Color: -60 0 119 255
+Color: -45 0 255 123
 Color: -10 7 113 2
 Color4: 0 176 176 176 0
 Color: 10 204 109 1
-Color: 50 255 234 0
-Color: 75 255 0 89
+Color: 45 255 234 0
+Color: 60 255 0 89
 Color: 100 70 0 0
