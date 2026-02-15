@@ -23,10 +23,6 @@
   <span class="dot"></span>
   LIVE RADAR
 </a>
-<a href="https://web.weatherwise.app/" target="_blank" rel="noopener noreferrer" class="live-indicator">
-  <span class="dot"></span>
-  LIVE RADAR
-</a>
 <a href="/colortables/" class="logo-link">
   <h1 class="logo-heading">
     <img src="https://www.weatherwise.app/img/logo.svg" alt="WeatherWise logo">
@@ -76,7 +72,10 @@
 
     <div class="controls">
       <button onclick="addRow()">Add Row</button>
+      <button onclick="undo()">Undo</button>
+      <button onclick="redo()">Redo</button>
       <button onclick="downloadPAL()">Download .PAL</button>
+
     </div>
 
   </div>
@@ -89,6 +88,10 @@ const rowsContainer=document.getElementById("rows");
 const preview=document.getElementById("preview");
 
 const ticksContainer = document.getElementById("legend");
+
+// 👇 ADD THIS HERE
+let historyStack = [];
+let historyIndex = -1;
 
 
 const defaultTable = [
@@ -198,7 +201,11 @@ function createColorSet(container, data, withAlpha = false) {
   syncFromRGB();
 
   // 🔥 IMPORTANT — use change for picker (not input)
-  picker.addEventListener("change", syncFromPicker);
+ picker.addEventListener("change", () => {
+  syncFromPicker();
+  saveState();
+});
+
 
   rInput.addEventListener("input", syncFromRGB);
   gInput.addEventListener("input", syncFromRGB);
@@ -212,11 +219,77 @@ function createColorSet(container, data, withAlpha = false) {
   });
 }
 
+function getCurrentState() {
+  const rows = [...document.querySelectorAll(".row")];
+
+  return rows.map(row => {
+    const value = row.querySelector(".value").value;
+    const mode  = row.querySelector(".mode").value;
+    const useEnd = row.querySelector(".useEnd")?.checked;
+
+    const sets = row.querySelectorAll(".color-set");
+    const start = sets[0];
+    const end   = sets[1];
+
+    const startData = {
+      r: start.querySelector(".r").value,
+      g: start.querySelector(".g").value,
+      b: start.querySelector(".b").value,
+      a: start.querySelector(".a")?.value
+    };
+
+    let endData = null;
+    if (useEnd && end) {
+      endData = {
+        r: end.querySelector(".r").value,
+        g: end.querySelector(".g").value,
+        b: end.querySelector(".b").value,
+        a: end.querySelector(".a")?.value
+      };
+    }
+
+    return {
+      value,
+      type: mode,
+      start: startData,
+      end: endData
+    };
+  });
+}
+
+function saveState() {
+  const state = getCurrentState();
+
+  historyStack = historyStack.slice(0, historyIndex + 1);
+  historyStack.push(JSON.stringify(state));
+  historyIndex++;
+}
+
+function restoreState(state) {
+  rowsContainer.innerHTML = "";
+  state.forEach(row => addRow(row));
+  updatePreview();
+}
+
+function undo() {
+  if (historyIndex > 0) {
+    historyIndex--;
+    restoreState(JSON.parse(historyStack[historyIndex]));
+  }
+}
+
+function redo() {
+  if (historyIndex < historyStack.length - 1) {
+    historyIndex++;
+    restoreState(JSON.parse(historyStack[historyIndex]));
+  }
+}
 
 
 function addRow(data){
   const row=document.createElement("div");
   row.className="row";
+  
 
   row.innerHTML=`
     <input type="number" class="value" placeholder="Value">
@@ -235,6 +308,7 @@ valueInput.addEventListener("change", updatePreview);
 valueInput.addEventListener("blur", () => {
   sortRows();
   updatePreview();
+    saveState(); 
 });
 
 
@@ -344,9 +418,13 @@ function updateVisibility(){
 modeSelect.addEventListener("change", () => {
   rebuildStartSet();
   updateVisibility();
+    saveState(); 
 });
 
-  endToggle.addEventListener("change",updateVisibility);
+endToggle.addEventListener("change", () => {
+  updateVisibility();
+  saveState();   // 👈 ADD THIS
+});
 
 
 // DELETE BUTTON
@@ -367,6 +445,7 @@ deleteBtn.addEventListener("click", () => {
   if (allRows.length <= 1) return;
   row.remove();
   updatePreview();
+    saveState(); 
 });
 
 row.appendChild(deleteBtn);
@@ -376,6 +455,7 @@ row.appendChild(deleteBtn);
 
   rowsContainer.appendChild(row);
   updateVisibility();
+  saveState(); 
 }
 
 function sortRows() {
@@ -575,6 +655,7 @@ function downloadPAL(){
 // Load default table on startup
 defaultTable.forEach(row => addRow(row));
 updatePreview();
+saveState(); 
 
 </script>
 </div>

@@ -454,6 +454,71 @@ footer .disclaimer {
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
 }
 
+/* UNDO AND REDO */
+function getCurrentState(){
+  const rows = [...document.querySelectorAll(".row")];
+
+  return rows.map(row => {
+    const value = row.querySelector(".value").value;
+    const mode  = row.querySelector(".mode").value;
+
+    const sets = row.querySelectorAll(".color-set");
+    const start = sets[0];
+    const end   = sets[1];
+
+    const startData = {
+      r: start.querySelector(".r").value,
+      g: start.querySelector(".g").value,
+      b: start.querySelector(".b").value,
+      a: start.querySelector(".a")?.value
+    };
+
+    let endData = null;
+    if(row.querySelector(".useEnd")?.checked && end){
+      endData = {
+        r: end.querySelector(".r").value,
+        g: end.querySelector(".g").value,
+        b: end.querySelector(".b").value,
+        a: end.querySelector(".a")?.value
+      };
+    }
+
+    return {
+      value,
+      type: mode,
+      start: startData,
+      end: endData
+    };
+  });
+}
+
+function saveState(){
+  const snapshot = getCurrentState();
+
+  // If we undo then change something, wipe forward history
+  historyStack = historyStack.slice(0, historyIndex + 1);
+
+  historyStack.push(snapshot);
+  historyIndex++;
+}
+
+function restoreState(index){
+  rowsContainer.innerHTML = "";
+  historyStack[index].forEach(row => addRow(row));
+  updatePreview();
+}
+
+function undo(){
+  if(historyIndex <= 0) return;
+  historyIndex--;
+  restoreState(historyIndex);
+}
+
+function redo(){
+  if(historyIndex >= historyStack.length - 1) return;
+  historyIndex++;
+  restoreState(historyIndex);
+}
 
 
 input,select{
@@ -578,6 +643,11 @@ button:hover{
 button:active{
   transform:translateY(0);
 }
+
+.controls button:last-child {
+  margin-left: auto;
+}
+
 
 .controls button{
   min-width:180px;
