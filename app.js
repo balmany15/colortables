@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Custom_Doppler2.pal",
       "Custom_Z.pal",
       "Dark_Z.pal",
+      "Diamond_Class.pal",
       "DuPageWx.pal",
       "DuPageWx2.pal",
       "EAX_Z.pal",
@@ -129,6 +130,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "Dark_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+  "Diamond_Class.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
