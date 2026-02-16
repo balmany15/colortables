@@ -134,8 +134,7 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
   "Diamond_Class.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
+    name: "by diamond",
   },
     "DuPageWx.pal": {
     name: "@AlmanyDesigns",
@@ -377,17 +376,24 @@ if (credits[filename]) {
   const credit = document.createElement("div");
   credit.className = "card-credit";
 
-  const creditLink = document.createElement("a");
-  creditLink.href = credits[filename].url;
-  creditLink.target = "_blank";
-  creditLink.rel = "noopener noreferrer";
-  creditLink.textContent = credits[filename].name;
+  const creditData = credits[filename];
 
-  /*credit.appendChild(document.createTextNode(" "));*/
-  credit.appendChild(creditLink);
+  if (creditData.url && creditData.url.trim() !== "") {
+    const creditLink = document.createElement("a");
+    creditLink.href = creditData.url;
+    creditLink.target = "_blank";
+    creditLink.rel = "noopener noreferrer";
+    creditLink.textContent = creditData.name;
+    credit.appendChild(creditLink);
+  } else {
+    const creditText = document.createElement("span");
+    creditText.textContent = creditData.name;
+    credit.appendChild(creditText);
+  }
 
   top.appendChild(credit);
 }
+
 
 
     const download = document.createElement("a");

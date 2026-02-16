@@ -387,6 +387,11 @@ footer .disclaimer {
   color: #38bdf8;
 }
 
+.card-credit span {
+  opacity: 0.85;
+  font-weight: 600;
+}
+
 
 /* ===== Color Lab ===== */
 
