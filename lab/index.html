@@ -74,6 +74,11 @@
       <button onclick="addRow()">Add Row</button>
       <button onclick="undo()">Undo</button>
       <button onclick="redo()">Redo</button>
+      <button onclick="document.getElementById('palImport').click()">
+  Import .PAL
+</button>
+<input type="file" id="palImport" accept=".pal" style="display:none">
+
       <button onclick="downloadPAL()">Download .PAL</button>
 
     </div>
@@ -567,6 +572,94 @@ ticksContainer.appendChild(tick);
 }
 
 
+document.getElementById("palImport").addEventListener("change", function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    parsePAL(event.target.result);
+  };
+
+  reader.readAsText(file);
+});
+
+function parsePAL(text) {
+
+  rowsContainer.innerHTML = "";
+
+const lines = text.split("\n").map(l => l.trim());
+
+lines.forEach(originalLine => {
+
+  if (!originalLine || originalLine.startsWith(";")) return;
+
+  const line = originalLine.toLowerCase();
+
+
+    if (!line || line.startsWith(";")) return;
+
+    if (line.startsWith("product:"))
+      document.getElementById("product").value = line.split(":")[1].trim();
+
+    else if (line.startsWith("units:"))
+      document.getElementById("units").value = line.split(":")[1].trim();
+
+    else if (line.startsWith("scale:"))
+      document.getElementById("scale").value = line.split(":")[1].trim();
+
+    else if (line.startsWith("offset:"))
+      document.getElementById("offset").value = line.split(":")[1].trim();
+
+    else if (line.startsWith("step:"))
+      document.getElementById("step").value = line.split(":")[1].trim();
+
+    else if (line.startsWith("solidColor4:")) {
+      const p = line.replace("solidColor4:", "").trim().split(/\s+/);
+      addRow({
+        value: +p[0],
+        type: "solid4",
+        start: { r:+p[1], g:+p[2], b:+p[3], a:+p[4] }
+      });
+    }
+
+    else if (line.startsWith("solidColor:")) {
+      const p = line.replace("solidColor:", "").trim().split(/\s+/);
+      addRow({
+        value: +p[0],
+        type: "solid",
+        start: { r:+p[1], g:+p[2], b:+p[3] }
+      });
+    }
+
+    else if (line.startsWith("color4:")) {
+      const p = line.replace("color4:", "").trim().split(/\s+/);
+      addRow({
+        value: +p[0],
+        type: "color4",
+        start: { r:+p[1], g:+p[2], b:+p[3], a:+p[4] },
+        end: p.length > 5 ? { r:+p[5], g:+p[6], b:+p[7], a:+p[8] } : null
+      });
+    }
+
+    else if (line.startsWith("color:")) {
+      const p = line.replace("color:", "").trim().split(/\s+/);
+      addRow({
+        value: +p[0],
+        type: "color",
+        start: { r:+p[1], g:+p[2], b:+p[3] },
+        end: p.length > 4 ? { r:+p[4], g:+p[5], b:+p[6] } : null
+      });
+    }
+
+  });
+
+  sortRows();
+  updatePreview();
+  saveState();
+}
+
+
 function downloadPAL(){
   const rows=[...document.querySelectorAll(".row")];
 
@@ -576,6 +669,10 @@ function downloadPAL(){
            (parseFloat(b.querySelector(".value").value)||0);
   });
 
+
+
+
+
   // 🔥 Grab meta values
   const product = document.getElementById("product").value || "";
   const units   = document.getElementById("units").value   || "";
@@ -584,6 +681,10 @@ function downloadPAL(){
   const step    = document.getElementById("step").value    || "";
 
   let content = "";
+// Add generator comment
+content += `; Created in Almany Designs Color Lab\n`;
+content += `; ----------------------------------------\n\n`;
+
 
   // ✅ First two required rows
   content += `Product: ${product}\n`;
