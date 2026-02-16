@@ -165,16 +165,21 @@ header p {
 
 
 .nav-btn:hover {
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 12px rgba(0,153,255,0.25);
-      text-decoration: none;
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+    text-decoration: none;
+
 }
 
+
 .nav-btn.active {
-  background: var(--brand-deep);
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 16px rgba(0,153,255,0.4);
+  background: #1d4ed8;
+  border-color: #0099ff;
+  color: #ffffff;
 }
+
 
 
 .nav-link {
