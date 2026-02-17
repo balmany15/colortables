@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "DuPageWx.pal",
       "DuPageWx2.pal",
       "EAX_Z.pal",
+      "Forbes.pal",
       "FOXweather.pal",
       "GMED_Reflectivity.pal",
       "HD_SuperRes.pal",
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_SR.pal",
       "NWS_Wichita.pal",
       "PhasedArray.pal",
+      "Pivotal_Wx.pal",
       "RadarOmega.pal",
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
@@ -148,6 +150,10 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
+    "Forbes.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
     "FOXWEATHER.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
@@ -237,6 +243,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "PhasedArray.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Pivotal_Wx.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
