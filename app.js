@@ -30,10 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "Ivan.pal",
       "myradar.pal",
       "NSSL.pal",
-      "NSSL2.pal",
-      "NSSL3.pal",
+      "NSSL_2.pal",
+      "NSSL_3.pal",
       "NWS_CRH.pal",
-      "NWS_Deluth.pal",
       "NWS_LaCrosse.pal",
       "NWS_Legacy.pal",
       "NWS_LOT.pal",
@@ -181,19 +180,15 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NSSL2.pal": {
+    "NSSL_2.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NSSL3.pal": {
+    "NSSL_3.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_CRH.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "NWS_Deluth.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
