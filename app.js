@@ -16,13 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "CLT_Broadcast.pal",
       "CODE_Z.pal",
       "Custom_Doppler.pal",
-      "Custom_Doppler2.pal",
       "Custom_Z.pal",
       "Dark_Z.pal",
       "Diamond_Class.pal",
       "DuPageWx.pal",
       "DuPageWx2.pal",
       "EAX_Z.pal",
+      "Forbes.pal",
       "FOXweather.pal",
       "GMED_Reflectivity.pal",
       "HD_SuperRes.pal",
@@ -30,10 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "Ivan.pal",
       "myradar.pal",
       "NSSL.pal",
-      "NSSL2.pal",
-      "NSSL3.pal",
+      "NSSL_2.pal",
+      "NSSL_3.pal",
       "NWS_CRH.pal",
-      "NWS_Deluth.pal",
       "NWS_LaCrosse.pal",
       "NWS_Legacy.pal",
       "NWS_LOT.pal",
@@ -43,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_SR.pal",
       "NWS_Wichita.pal",
       "PhasedArray.pal",
+      "Pivotal_Wx.pal",
       "RadarOmega.pal",
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
@@ -121,10 +121,6 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "Custom_Doppler2.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
     "Custom_Z.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
@@ -145,6 +141,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "EAX_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Forbes.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -180,19 +180,15 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NSSL2.pal": {
+    "NSSL_2.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "NSSL3.pal": {
+    "NSSL_3.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_CRH.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "NWS_Deluth.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -237,6 +233,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "PhasedArray.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Pivotal_Wx.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },

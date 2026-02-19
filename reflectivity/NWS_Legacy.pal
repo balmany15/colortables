@@ -1,14 +1,16 @@
-product: BR
-units: dBZ
-step: 5
+; Created in Almany Designs Color Lab
+; ----------------------------------------
 
+Product: BR
+Units: DBZ
 
-color: -30 165 165 165 8 230 230
-color: 10 0 165 255 0 8 197
-color: 20 16 255 8 10 126 3
-color: 35 251 238 0 210 112 2
-color: 50 255 0 0 171 0 1
-color: 65 247 1 249 136 63 174
-color: 75 255 255 255 184 184 184
-color: 85 184 184 184
-color: 95 184 184 184
+Color: -35 221 254 255
+Color: -30 216 210 233 115 74 119
+Color: -10 214 212 173 119 119 119
+Color: 5 0 236 236 0 0 246
+Color: 20 0 255 0 0 144 0
+Color: 35 255 255 0 255 144 0
+Color: 50 255 0 0 192 0 0
+Color: 65 255 0 255
+Color: 70 153 85 201
+Color: 75 255 255 255
