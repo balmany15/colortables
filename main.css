@@ -28,13 +28,24 @@ body {
     #0b1220;
   color: var(--text-primary);
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
 
-.mono {
-  font-family: 'JetBrains Mono', monospace;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url("/Almany_CT_BG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain; /* or cover */
+
+  opacity: 1.0;  /* 🔥 Adjust this */
+  pointer-events: none;
+  z-index: 0;
 }
-
-
 
 /* ===== Header ===== */
 .logo-link {
@@ -78,7 +89,7 @@ body {
 header {
   text-align: center;
   padding: 30px 20px 20px;
-  border-bottom: 1px solid #0099ff;
+  border-bottom: 0px solid #193547;
     position: relative;
 }
 
@@ -310,7 +321,7 @@ footer {
   padding: 40px 20px;
   color: #94a3b8;
   font-size: 14px;
-  border-top: 1px solid #0099ff;
+  border-top: 0px solid #193547;
   margin-top: 60px;
   background-color: #000;
 }
