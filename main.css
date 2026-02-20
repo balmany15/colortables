@@ -23,7 +23,8 @@
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 20% 10%, rgba(0,153,255,0.18), transparent 15%),
+    /*radial-gradient(circle at 20% 10%, rgba(0,153,255,0.18), transparent 15%),*/
+    radial-gradient(circle at 20% 10%, rgba(29,78,216,0.25), transparent 50%),
     radial-gradient(circle at 80% 90%, rgba(29,78,216,0.25), transparent 50%),
     #0b1220;
   color: var(--text-primary);
