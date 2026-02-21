@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // File lists
   const files = {
     reflectivity: [
+      "ABC.pal",
       "AVL_Broadcast.pal",
       "Baron256.pal",
       "BaronLynx.pal",
@@ -77,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // Optional credits per file
 const credits = {
   
+  "ABC.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
   "ALPHA_Velo.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
