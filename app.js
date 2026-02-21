@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const files = {
     reflectivity: [
       "ABC.pal",
-      "AVL_Broadcast.pal",
+      "AVL.pal",
       "Baron256.pal",
       "BaronLynx.pal",
       "Blue_Doppler.pal",
@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
-      "Solid_Reflectivity.pal",
       "SolidTV.pal",
       "WDTD_Z.pal",
       "WxTap_BR.pal",
@@ -86,7 +85,7 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-  "AVL_Broadcast.pal": {
+  "AVL.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -262,10 +261,6 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "SimuAwipsRC.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "Solid_Reflectivity.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
