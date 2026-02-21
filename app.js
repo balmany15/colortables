@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "EAX_Z.pal",
       "Forbes.pal",
       "FOXweather.pal",
-      "GMED_Reflectivity.pal",
+      "GMED.pal",
       "HD_SuperRes.pal",
       "Hunter_Refl.pal",
       "Ivan.pal",
@@ -159,7 +159,7 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "GMED_Reflectivity.pal": {
+    "GMED.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
