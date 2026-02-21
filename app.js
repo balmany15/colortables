@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
-      "SolidTV.pal",
       "WDTD_Z.pal",
       "WxTap_BR.pal",
       "WxTap_RadarLabHD.pal"
@@ -261,10 +260,6 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "SimuAwipsRC.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "SolidTV.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
