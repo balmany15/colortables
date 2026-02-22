@@ -2,7 +2,7 @@ product: br
 units: dBZ
 step: 5
 
-color: -5  0 53 0
+color4: -5  0 53 0 0
 color: 0   3 81 3
 color: 5   3 187 3
 color: 10  3 208 3

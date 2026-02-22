@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "ABC.pal",
       "AVL.pal",
       "Baron256.pal",
-      "BaronLynx.pal",
+      "Baron_Lynx.pal",
+      "Baron_VIPIR.pal",
       "Blue_Doppler.pal",
       "Charleston.pal",
       "CLT_Broadcast.pal",
       "CODE_Z.pal",
+      "Core_Punch.pal",
       "Custom_Doppler.pal",
       "Custom_Z.pal",
       "Dark_Z.pal",
@@ -44,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_Wichita.pal",
       "PhasedArray.pal",
       "Pivotal_Wx.pal",
+      "Prism_HD.pal",
       "RadarOmega.pal",
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
@@ -96,7 +99,11 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "BaronLynx.pal": {
+    "Baron_Lynx.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Baron_VIPIR.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -117,6 +124,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "CODE_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Core_Punch.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -240,6 +251,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "Pivotal_Wx.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Prism_HD.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
