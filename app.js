@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_LOT.pal",
       "NWS_LOT2.pal",
       "NWS_Louisville.pal",
+      "NWS_NY.pal",
       "NWS_OUN.pal",
       "NWS_SR.pal",
       "NWS_Wichita.pal",
@@ -227,6 +228,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "NWS_Miami.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "NWS_NY.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
