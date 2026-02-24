@@ -43,7 +43,7 @@ body::before {
   background-repeat: no-repeat;
   background-size: cover;
 
-  opacity: 0.04;   /* temporarily increase so we KNOW it works */
+  opacity: 0.05;   /* temporarily increase so we KNOW it works */
   pointer-events: none;
   z-index: -1;
 }
