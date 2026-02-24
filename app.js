@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Charleston.pal",
       "CLT_Broadcast.pal",
       "CODE_Z.pal",
+      "Combo_Reflectivity.pal",
       "Core_Punch.pal",
       "Custom_Doppler.pal",
       "Custom_Z.pal",
@@ -68,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     ptype: [
       "BARON.pal",
+      "Combo_Reflectivity.pal",
       "FOXWEATHER.pal",
       "Ritter_Reflectivity.pal",
       "The_Weather_Channel.pal",
@@ -127,6 +129,9 @@ const credits = {
     "CODE_Z.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
+  },
+    "Combo_Reflectivity.pal": {
+    name: "by tmanokc",
   },
     "Core_Punch.pal": {
     name: "@AlmanyDesigns",
