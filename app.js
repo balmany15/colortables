@@ -8,13 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // File lists
   const files = {
     reflectivity: [
-      "AVL_Broadcast.pal",
+      "ABC.pal",
+      "AVL.pal",
       "Baron256.pal",
-      "BaronLynx.pal",
+      "Baron_Lynx.pal",
+      "Baron_VIPIR.pal",
       "Blue_Doppler.pal",
       "Charleston.pal",
       "CLT_Broadcast.pal",
       "CODE_Z.pal",
+      "Combo_Reflectivity.pal",
+      "Core_Punch.pal",
       "Custom_Doppler.pal",
       "Custom_Z.pal",
       "Dark_Z.pal",
@@ -24,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "EAX_Z.pal",
       "Forbes.pal",
       "FOXweather.pal",
-      "GMED_Reflectivity.pal",
+      "GMED.pal",
       "HD_SuperRes.pal",
       "Hunter_Refl.pal",
       "Ivan.pal",
@@ -38,17 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
       "NWS_LOT.pal",
       "NWS_LOT2.pal",
       "NWS_Louisville.pal",
+      "NWS_NY.pal",
       "NWS_OUN.pal",
       "NWS_SR.pal",
       "NWS_Wichita.pal",
       "PhasedArray.pal",
       "Pivotal_Wx.pal",
+      "Prism_HD.pal",
       "RadarOmega.pal",
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
-      "Solid_Reflectivity.pal",
-      "SolidTV.pal",
       "WDTD_Z.pal",
       "WxTap_BR.pal",
       "WxTap_RadarLabHD.pal"
@@ -65,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     ptype: [
       "BARON.pal",
+      "Combo_Reflectivity.pal",
       "FOXWEATHER.pal",
       "Ritter_Reflectivity.pal",
       "The_Weather_Channel.pal",
@@ -77,11 +82,15 @@ document.addEventListener("DOMContentLoaded", () => {
 // Optional credits per file
 const credits = {
   
+  "ABC.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
   "ALPHA_Velo.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-  "AVL_Broadcast.pal": {
+  "AVL.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -93,7 +102,11 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "BaronLynx.pal": {
+    "Baron_Lynx.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Baron_VIPIR.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -114,6 +127,13 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "CODE_Z.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+    "Combo_Reflectivity.pal": {
+    name: "by tmanokc",
+  },
+    "Core_Punch.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -156,7 +176,7 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
-    "GMED_Reflectivity.pal": {
+    "GMED.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
@@ -216,6 +236,10 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
+    "NWS_NY.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
     "NWS_OUN.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
@@ -240,6 +264,10 @@ const credits = {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
+    "Prism_HD.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
     "RadarOmega.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
@@ -257,14 +285,6 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "SimuAwipsRC.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "Solid_Reflectivity.pal": {
-    name: "@AlmanyDesigns",
-    url: "https://x.com/AlmanyDesigns"
-  },
-    "SolidTV.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },

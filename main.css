@@ -43,7 +43,7 @@ body::before {
   background-repeat: no-repeat;
   background-size: cover;
 
-  opacity: 0.04;   /* temporarily increase so we KNOW it works */
+  opacity: 0.05;   /* temporarily increase so we KNOW it works */
   pointer-events: none;
   z-index: -1;
 }
@@ -274,7 +274,7 @@ main {
 
 /* ===== Thumbnail ===== */
 .card img {
-  width: auto;
+  width: 120px;
   height: auto;
   object-fit: contain;   /* Ensures all images stay uniform */
   background: #000;
@@ -322,16 +322,18 @@ footer {
   padding: 40px 20px;
   color: #94a3b8;
   font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+;
   border-top: 0px solid #193547;
   margin-top: 60px;
   background-color: #000;
 }
 
 footer .disclaimer {
-  font-size: 12px;
-  color: #94a3b8;
+  font-size: 14px;
+  color: #38bdf8;
   margin-top: 10px;
-  max-width: 700px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.5;
