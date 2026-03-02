@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
-      "UK_NetWx.pal"
+      "UK_NetWx.pal",
       "WDTD_Z.pal",
       "WxTap_BR.pal",
       "WxTap_RadarLabHD.pal"
