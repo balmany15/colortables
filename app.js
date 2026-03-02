@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Hunter_Refl.pal",
       "Ivan.pal",
       "myradar.pal",
+      "News_9.pal",
       "NSSL.pal",
       "NSSL_2.pal",
       "NSSL_3.pal",
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     velocity: [
       "ALPHA_Velo.pal",
       "Chaser_HD.pal",
+      "News_9.pal",
       "NWS_Legacy.pal",
       "NWS_LOT.pal",
       "NWS_Miami.pal",
@@ -195,6 +197,9 @@ const credits = {
       "myradar.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
+  },
+      "News_9.pal": {
+    name: "by tmanokc",
   },
     "NSSL.pal": {
     name: "@AlmanyDesigns",
