@@ -1,0 +1,29 @@
+KWTV News 9 Velocity:
+Product: BV
+Units: MPH
+Scale: 1.9426
+Step: 10
+
+Color: -180 255 0 128
+Color: -120 255 0 128
+Color: -90 0 0 108
+Color: -82 0 0 228
+Color: -76 0 112 242
+Color: -70 0 224 255
+Color: -60 0 255 225
+Color: -50 160 255 208
+Color: -40 145 198 142
+Color: -10 20 123 11
+Color: -3 110 110 110
+Color: 0 110 110 110
+Color: 3 110 110 110
+Color: 10 80 0 0
+Color: 40 255 0 0
+Color: 48.6 255 0 128
+Color: 49.5 255 0 144
+Color: 65 255 196 255
+Color: 70 255 96 0
+Color: 120 255 255 0
+Color: 180 255 255 0
+
+RF: 130 130 130
