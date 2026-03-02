@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "RadarScope.pal",
       "Ritter_Reflectivity.pal",
       "SimuAwipsRC.pal",
+      "UK_NetWx.pal"
       "WDTD_Z.pal",
       "WxTap_BR.pal",
       "WxTap_RadarLabHD.pal"
@@ -302,6 +303,10 @@ const credits = {
     url: "https://x.com/AlmanyDesigns"
   },
     "UCAR_Velocity.pal": {
+    name: "@AlmanyDesigns",
+    url: "https://x.com/AlmanyDesigns"
+  },
+  "UK_NetWx.pal": {
     name: "@AlmanyDesigns",
     url: "https://x.com/AlmanyDesigns"
   },
