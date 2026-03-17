@@ -3,9 +3,8 @@
 ;
 
 product: BV
-units: KTS
-step: 10 
-scale: 1.9426
+units: MPH
+scale: 2.23694 
 
 color: -120 0 0 155
 color: -50 0 255 255
